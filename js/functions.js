@@ -1,14 +1,12 @@
-function validateStringLenght (string, maxLenght) {
-  if (string.lenght <= maxLenght) {
-    return true;
-  }
-
-  return false;
+function validateStringLength (string, maxLength) {
+  const result = (string.length <= maxLength);
+  return result;
 }
 
-// строка 6 символов, макс длина 7, ожидаю true
-validateStringLenght('fngjhk', 7);
-// строка 5 символов, макс длина 5, ожидаю true
-validateStringLenght('fngjh', 5);
-// строка 6 символов, макс длина 4, ожидаю false
-validateStringLenght('fngjhk', 4);
+
+// строка 7 символов, макс длина 8, ожидаю true
+console.log(validateStringLength('fngjnch', 8));
+// строка 4 символов, макс длина 4, ожидаю true
+console.log(validateStringLength('fngj', 4));
+// строка 3 символов, макс длина 2, ожидаю false
+console.log(validateStringLength('fng', 2));
