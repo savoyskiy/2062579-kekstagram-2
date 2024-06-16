@@ -23,11 +23,14 @@ function validatePalindrom (string) {
     stringReverse += stringNormalize.at(i);
   }
 
-  if (stringReverse === stringNormalize) {
-    return true;
-  } else {
-    return false;
-  }
+  // if (stringReverse === stringNormalize) {
+  //   return true;
+  // } else {
+  //   return false;
+  // }
+
+  const result = (stringReverse === stringNormalize);
+  return result;
 }
 
 validatePalindrom ('Лёша на полке клопа нашёл');
