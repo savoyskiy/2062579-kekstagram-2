@@ -6,16 +6,16 @@ validateStringLength ('fgfjfjk', 10);
 
 // 2. Функция проверки палиндрома:
 const validatePalindrom = (string) => {
-  const stringNormalize = string.replaceAll(' ', '').toLowerCase(); // нормализуем полученную строку
+  const stringNormalize = string.replaceAll(' ', '').toLowerCase().split(); // нормализуем полученную строку
+  console.log(stringNormalize);
+  const stringReverse = stringNormalize.reverse(); // создаем новую перевернутую
+  console.log(stringReverse);
 
-  let stringReverse = ''; // создаем новую перевернутую
+  // for (let i = (stringNormalize.length - 1); i >= 0; i--) { // заполняем перевернутую строку
+  //   stringReverse += stringNormalize.at(i);
+  // }
 
-  for (let i = (stringNormalize.length - 1); i >= 0; i--) { // заполняем перевенутую строку
-    stringReverse += stringNormalize.at(i);
-  }
-
-  const result = (stringReverse === stringNormalize); // сверяем перевернутую и полученную
-  return result;
+  return stringReverse === stringNormalize; // сверяем перевернутую и полученную
 };
 
 validatePalindrom ('Лёша на полке клопа нашёл');
