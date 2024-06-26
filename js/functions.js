@@ -1,14 +1,11 @@
 // 1. Функция проверки длины строки:
-function validateStringLength (string, maxLength) {
-  const result = (string.length <= maxLength);
-  return result;
-}
+const validateStringLength = (string, maxLength) => string.length <= maxLength;
 
 validateStringLength ('fgfjfjk', 10);
 
 
 // 2. Функция проверки палиндрома:
-function validatePalindrom (string) {
+const validatePalindrom = (string) => {
   const stringNormalize = string.replaceAll(' ', '').toLowerCase(); // нормализуем полученную строку
 
   let stringReverse = ''; // создаем новую перевернутую
@@ -19,13 +16,13 @@ function validatePalindrom (string) {
 
   const result = (stringReverse === stringNormalize); // сверяем перевернутую и полученную
   return result;
-}
+};
 
 validatePalindrom ('Лёша на полке клопа нашёл');
 
 
 // 3. Функция извлечения числа:
-function getNumber (string) {
+const getNumber = (string) => {
   const stringNormalize = string.toString().replaceAll(' ', ''); // явно приводим полученные данные к типу строка и удаляем все пробелы
 
   let stringNumber = ''; // создаем новую строку
@@ -38,6 +35,6 @@ function getNumber (string) {
 
   const result = parseInt(stringNumber, 10); // приводим полученную строку к целому числу
   return result;
-}
+};
 
 getNumber('а я томат-2024');
