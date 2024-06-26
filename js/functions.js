@@ -23,13 +23,12 @@ const getNumber = (string) => {
   let stringNumber = ''; // создаем новую строку
 
   for (let i = 0; i < stringNormalize.length; i++) { // заполняем новую строку только цифрами
-    if (stringNormalize.at(i) >= 0 && stringNormalize.at(i) <= 9) {
+    if (!isNaN(stringNormalize.at(i))) {
       stringNumber += stringNormalize.at(i);
     }
   }
 
-  const result = parseInt(stringNumber, 10); // приводим полученную строку к целому числу
-  return result;
+  return parseInt(stringNumber, 10); // приводим полученную строку к целому числу
 };
 
 getNumber('а я томат-2024');
