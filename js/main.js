@@ -149,54 +149,61 @@ const getRandomNumber = (a, b) => {
   return result;
 };
 /* количество генерируемых описаний */
-// eslint-disable-next-line prefer-const
-let qantityPhotos = 25;
+const quantityPhotos = 25;
 
 /* массив с комментариями к фото */
 let commentsArray = [];
 
-/* функция генерации комментариев*/
-const createComment = () => {
-  const createRandomMessage = () => { /*функция создания комментария*/
-    let randomMessage;
-    /* рандомно выбираем два сообщения из массива */
-    const randomMessage1 = MESSAGES[getRandomNumber(0, MESSAGES.length - 1)];
-    const randomMessage2 = MESSAGES[getRandomNumber(0, MESSAGES.length - 1)];
-    /*сравниваем их*/
-    if (randomMessage1 === randomMessage2) {
-      randomMessage = randomMessage1; /* если одинаковые, выбираем первый*/
-    } else {
-      // eslint-disable-next-line prefer-template
-      randomMessage = randomMessage1 + ' ' + randomMessage2; /*если разные, склеиваем итоговое сообщение из обоих */
-    }
-    return randomMessage;
-  };
-
-  /* функция генерации адреса аватара */
-  const getAvatar = () => {
-    // eslint-disable-next-line prefer-template
-    const avatarUrl = 'img/avatar-' + getRandomNumber(1, 6) + '.svg';
-    return avatarUrl;
-  };
-
-  return {
-    id: '',
-    avatar: getAvatar(),
-    message: createRandomMessage(),
-    name: NAMES[getRandomNumber(0, NAMES.length - 1)],
-  };
-};
-
 /*функция создания описания фото*/
 const createPhotoDescription = (number) => {
-  const getCommentsQuantity = getRandomNumber(0, 30);
+  /* определение количества комментариев */
+  const commentsQuantity = getRandomNumber(0, 30);
+
+  /* функция генерации комментариев*/
+  const createComment = (number, commentsQuantity) => {
+
+    if (commentsQuantity > 0) {
+      for (let i = 1; i <= commentsQuantity; i++) {
+        /*функция создания комментария*/
+        const createRandomMessage = () => {
+          let randomMessage;
+          /* рандомно выбираем два сообщения из массива */
+          const randomMessage1 = MESSAGES[getRandomNumber(0, MESSAGES.length - 1)];
+          const randomMessage2 = MESSAGES[getRandomNumber(0, MESSAGES.length - 1)];
+          /*сравниваем их*/
+          if (randomMessage1 === randomMessage2) {
+            randomMessage = randomMessage1; /* если одинаковые, выбираем первый*/
+          } else {
+            // eslint-disable-next-line prefer-template
+            randomMessage = randomMessage1 + ' ' + randomMessage2; /*если разные, склеиваем итоговое сообщение из обоих */
+          }
+          return randomMessage;
+        };
+
+        /* функция генерации адреса аватара */
+        const getAvatar = () => {
+          // eslint-disable-next-line prefer-template
+          const avatarUrl = 'img/avatar-' + getRandomNumber(1, 6) + '.svg';
+          return avatarUrl;
+        };
+
+        commentsArray[i] = {
+          id: number * 10000 + i,
+          avatar: getAvatar(),
+          message: createRandomMessage(),
+          name: NAMES[getRandomNumber(0, NAMES.length - 1)],
+        };
+      }
+    }
+  };
+
   return {
     id: number,
     // eslint-disable-next-line prefer-template
     url: 'photos/' + id + '.jpg',
     description: DESCRIPTION_PHOTOS[number],
     likes: getRandomNumber(15, 200),
-    comments: '',
+    comments: createComment(number, commentsQuantity),
   };
 };
 
@@ -204,6 +211,6 @@ const createPhotoDescription = (number) => {
 const photoDescriptions = [];
 
 /* цикл заполнения массива с описаниями фото */
-for (let i = 1; i <= qantityPhotos; i++) {
+for (let i = 1; i <= quantityPhotos; i++) {
   photoDescriptions[i] = createPhotoDescription(i);
 }
