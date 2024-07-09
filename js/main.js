@@ -148,15 +148,17 @@ const getRandomNumber = (a, b) => {
   const result = Math.floor(Math.random() * (max - min + 1)) + min;
   return result;
 };
+
 /* количество генерируемых описаний */
 const quantityPhotos = 25;
 
 /* функция генерации комментариев*/
 const createComment = (number, commentsQuantity) => {
-  /* массив с комментариями к фото */
+  /* массив с комментариями к фото, пустой */
   const commentsArray = [];
 
   if (commentsQuantity > 0) {
+    /* цикл нужен для создания заданного количества комментариев */
     for (let i = 0; i < commentsQuantity; i++) {
       /*функция создания комментария*/
       const createRandomMessage = () => {
@@ -179,6 +181,7 @@ const createComment = (number, commentsQuantity) => {
         return avatarUrl;
       };
 
+      /* заполняем массив с комментариями */
       commentsArray[i] = {
         id: (number + 1) * 10000 + (i + 1),
         avatar: getAvatar(),
