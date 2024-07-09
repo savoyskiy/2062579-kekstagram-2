@@ -183,7 +183,7 @@ const createComment = (number, commentsQuantity) => {
 
       /* заполняем массив с комментариями */
       commentsArray[i] = {
-        id: (number + 1) * 10000 + (i + 1),
+        id: number * 10000 + (i + 1),
         avatar: getAvatar(),
         message: createRandomMessage(),
         name: NAMES[getRandomNumber(0, NAMES.length - 1)],
@@ -208,10 +208,18 @@ const createPhotoDescription = (number) => {
   };
 };
 
-/* массив с описаниями фото */
-const photoDescriptions = [];
+/*итоговая функция */
+const createDescriptionsArray = (quantity) => {
+  /* массив с описаниями фото */
+  const photoDescriptions = [];
 
-/* цикл заполнения массива с описаниями фото */
-for (let i = 1; i <= quantityPhotos; i++) {
-  photoDescriptions[i - 1] = createPhotoDescription(i);
-}
+  /* цикл заполнения массива с описаниями фото */
+  for (let i = 1; i <= quantity; i++) {
+    photoDescriptions[i - 1] = createPhotoDescription(i);
+  }
+
+  return photoDescriptions;
+};
+
+let photoDescriptionsArray = createDescriptionsArray(quantityPhotos);
+
