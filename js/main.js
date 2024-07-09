@@ -151,11 +151,10 @@ const getRandomNumber = (a, b) => {
 /* количество генерируемых описаний */
 const quantityPhotos = 25;
 
-/* массив с комментариями к фото */
-const commentsArray = [];
-
 /* функция генерации комментариев*/
 const createComment = (number, commentsQuantity) => {
+  /* массив с комментариями к фото */
+  const commentsArray = [];
 
   if (commentsQuantity > 0) {
     for (let i = 1; i <= commentsQuantity; i++) {
@@ -181,15 +180,15 @@ const createComment = (number, commentsQuantity) => {
       };
 
       commentsArray[i] = {
-        id: number * 10000 + i,
+        id: (number + 1) * 10000 + i,
         avatar: getAvatar(),
         message: createRandomMessage(),
         name: NAMES[getRandomNumber(0, NAMES.length - 1)],
       };
-
-      return commentsArray;
     }
   }
+
+  return commentsArray;
 };
 
 /*функция создания описания фото*/
@@ -200,7 +199,7 @@ const createPhotoDescription = (number) => {
   return {
     id: number,
     url: 'photos/' + number + '.jpg',
-    description: DESCRIPTION_PHOTOS[number],
+    description: DESCRIPTION_PHOTOS[number - 1],
     likes: getRandomNumber(15, 200),
     comments: createComment(number, commentsQuantity),
   };
@@ -211,5 +210,5 @@ const photoDescriptions = [];
 
 /* цикл заполнения массива с описаниями фото */
 for (let i = 1; i <= quantityPhotos; i++) {
-  photoDescriptions[i] = createPhotoDescription(i);
+  photoDescriptions[i - 1] = createPhotoDescription(i);
 }
