@@ -152,55 +152,52 @@ const getRandomNumber = (a, b) => {
 const quantityPhotos = 25;
 
 /* массив с комментариями к фото */
-let commentsArray = [];
+const commentsArray = [];
+
+/* функция генерации комментариев*/
+const createComment = (number, commentsQuantity) => {
+
+  if (commentsQuantity > 0) {
+    for (let i = 1; i <= commentsQuantity; i++) {
+      /*функция создания комментария*/
+      const createRandomMessage = () => {
+        let randomMessage;
+        /* рандомно выбираем два сообщения из массива */
+        const randomMessage1 = MESSAGES[getRandomNumber(0, MESSAGES.length - 1)];
+        const randomMessage2 = MESSAGES[getRandomNumber(0, MESSAGES.length - 1)];
+        /*сравниваем их*/
+        if (randomMessage1 === randomMessage2) {
+          randomMessage = randomMessage1; /* если одинаковые, выбираем первый*/
+        } else {
+          randomMessage = randomMessage1 + ' ' + randomMessage2; /*если разные, склеиваем итоговое сообщение из обоих */
+        }
+        return randomMessage;
+      };
+
+      /* функция генерации адреса аватара */
+      const getAvatar = () => {
+        const avatarUrl = 'img/avatar-' + getRandomNumber(1, 6) + '.svg';
+        return avatarUrl;
+      };
+
+      commentsArray[i] = {
+        id: number * 10000 + i,
+        avatar: getAvatar(),
+        message: createRandomMessage(),
+        name: NAMES[getRandomNumber(0, NAMES.length - 1)],
+      };
+    }
+  }
+};
 
 /*функция создания описания фото*/
 const createPhotoDescription = (number) => {
   /* определение количества комментариев */
   const commentsQuantity = getRandomNumber(0, 30);
 
-  /* функция генерации комментариев*/
-  const createComment = (number, commentsQuantity) => {
-
-    if (commentsQuantity > 0) {
-      for (let i = 1; i <= commentsQuantity; i++) {
-        /*функция создания комментария*/
-        const createRandomMessage = () => {
-          let randomMessage;
-          /* рандомно выбираем два сообщения из массива */
-          const randomMessage1 = MESSAGES[getRandomNumber(0, MESSAGES.length - 1)];
-          const randomMessage2 = MESSAGES[getRandomNumber(0, MESSAGES.length - 1)];
-          /*сравниваем их*/
-          if (randomMessage1 === randomMessage2) {
-            randomMessage = randomMessage1; /* если одинаковые, выбираем первый*/
-          } else {
-            // eslint-disable-next-line prefer-template
-            randomMessage = randomMessage1 + ' ' + randomMessage2; /*если разные, склеиваем итоговое сообщение из обоих */
-          }
-          return randomMessage;
-        };
-
-        /* функция генерации адреса аватара */
-        const getAvatar = () => {
-          // eslint-disable-next-line prefer-template
-          const avatarUrl = 'img/avatar-' + getRandomNumber(1, 6) + '.svg';
-          return avatarUrl;
-        };
-
-        commentsArray[i] = {
-          id: number * 10000 + i,
-          avatar: getAvatar(),
-          message: createRandomMessage(),
-          name: NAMES[getRandomNumber(0, NAMES.length - 1)],
-        };
-      }
-    }
-  };
-
   return {
     id: number,
-    // eslint-disable-next-line prefer-template
-    url: 'photos/' + id + '.jpg',
+    url: 'photos/' + number + '.jpg',
     description: DESCRIPTION_PHOTOS[number],
     likes: getRandomNumber(15, 200),
     comments: createComment(number, commentsQuantity),
