@@ -157,7 +157,7 @@ const createComment = (number, commentsQuantity) => {
   const commentsArray = [];
 
   if (commentsQuantity > 0) {
-    for (let i = 1; i <= commentsQuantity; i++) {
+    for (let i = 0; i < commentsQuantity; i++) {
       /*функция создания комментария*/
       const createRandomMessage = () => {
         let randomMessage;
@@ -180,7 +180,7 @@ const createComment = (number, commentsQuantity) => {
       };
 
       commentsArray[i] = {
-        id: (number + 1) * 10000 + i,
+        id: (number + 1) * 10000 + (i + 1),
         avatar: getAvatar(),
         message: createRandomMessage(),
         name: NAMES[getRandomNumber(0, NAMES.length - 1)],
