@@ -186,6 +186,8 @@ const createComment = (number, commentsQuantity) => {
         message: createRandomMessage(),
         name: NAMES[getRandomNumber(0, NAMES.length - 1)],
       };
+
+      return commentsArray;
     }
   }
 };
