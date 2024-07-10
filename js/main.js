@@ -152,6 +152,14 @@ const getRandomNumber = (a, b) => {
 /* количество генерируемых описаний */
 const quantityPhotos = 25;
 
+/* минимальное и максимальное количество комментариев */
+const minCommentsQuantity = 0;
+const maxCommentsQuantity = 30;
+
+/* минимальное и максимальное количество лайков */
+const minLikesQuantity = 15;
+const maxLikesQuantity = 200;
+
 /* функция генерации комментариев*/
 const createComment = (number, commentsQuantity) => {
   /* массив с комментариями к фото, пустой */
@@ -181,9 +189,12 @@ const createComment = (number, commentsQuantity) => {
         return avatarUrl;
       };
 
+      /* коэффициент для создания id комментариев */
+      const idFactor = 10000;
+
       /* заполняем массив с комментариями */
       commentsArray[i] = {
-        id: number * 10000 + (i + 1),
+        id: number * idFactor + (i + 1), // id комментария состоит из id фото и порядкового номера комментария
         avatar: getAvatar(),
         message: createRandomMessage(),
         name: NAMES[getRandomNumber(0, NAMES.length - 1)],
@@ -197,13 +208,13 @@ const createComment = (number, commentsQuantity) => {
 /*функция создания описания фото*/
 const createPhotoDescription = (number) => {
   /* определение количества комментариев */
-  const commentsQuantity = getRandomNumber(0, 30);
+  const commentsQuantity = getRandomNumber(minCommentsQuantity, maxCommentsQuantity);
 
   return {
     id: number,
     url: 'photos/' + number + '.jpg',
     description: DESCRIPTION_PHOTOS[number - 1],
-    likes: getRandomNumber(15, 200),
+    likes: getRandomNumber(minLikesQuantity, maxLikesQuantity),
     comments: createComment(number, commentsQuantity),
   };
 };
@@ -221,5 +232,6 @@ const createDescriptionsArray = (quantity) => {
   return photoDescriptions;
 };
 
+/* создаем переменную в которую записываем созданный массив с описаниями */
 let photoDescriptionsArray = createDescriptionsArray(quantityPhotos);
 
