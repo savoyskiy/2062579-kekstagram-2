@@ -171,6 +171,8 @@ const createComment = (number, commentsQuantity) => {
       /*функция создания комментария*/
       const createRandomMessage = () => {
         let randomMessage;
+        /* разделитель для сообщений */
+        const messageDivider = ' ';
         /* рандомно выбираем два сообщения из массива */
         const randomMessage1 = MESSAGES[getRandomNumber(0, MESSAGES.length - 1)];
         const randomMessage2 = MESSAGES[getRandomNumber(0, MESSAGES.length - 1)];
@@ -178,14 +180,18 @@ const createComment = (number, commentsQuantity) => {
         if (randomMessage1 === randomMessage2) {
           randomMessage = randomMessage1; /* если одинаковые, выбираем первый*/
         } else {
-          randomMessage = randomMessage1 + ' ' + randomMessage2; /*если разные, склеиваем итоговое сообщение из обоих */
+          randomMessage = randomMessage1 + messageDivider + randomMessage2; /*если разные, склеиваем итоговое сообщение из обоих */
         }
         return randomMessage;
       };
 
       /* функция генерации адреса аватара */
       const getAvatar = () => {
-        const avatarUrl = 'img/avatar-' + getRandomNumber(1, 6) + '.svg';
+        const minAvatarNumber = 1;
+        const maxAvatarNumber = 6;
+        const starAvatartUrl = 'img/avatar-';
+        const endAvatarUrl = '.svg';
+        const avatarUrl = starAvatartUrl + getRandomNumber(minAvatarNumber, maxAvatarNumber) + endAvatarUrl;
         return avatarUrl;
       };
 
@@ -209,10 +215,11 @@ const createComment = (number, commentsQuantity) => {
 const createPhotoDescription = (number) => {
   /* определение количества комментариев */
   const commentsQuantity = getRandomNumber(minCommentsQuantity, maxCommentsQuantity);
-
+  const startUrl = 'photos/';
+  const endUrl = '.jpg';
   return {
     id: number,
-    url: 'photos/' + number + '.jpg',
+    url: startUrl + number + endUrl,
     description: DESCRIPTION_PHOTOS[number - 1],
     likes: getRandomNumber(minLikesQuantity, maxLikesQuantity),
     comments: createComment(number, commentsQuantity),
@@ -232,6 +239,7 @@ const createDescriptionsArray = (quantity) => {
   return photoDescriptions;
 };
 
-/* создаем переменную в которую записываем созданный массив с описаниями */
-let photoDescriptionsArray = createDescriptionsArray(quantityPhotos);
+/* создаем массив с описаниями */
+createDescriptionsArray(quantityPhotos);
+
 
