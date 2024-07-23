@@ -169,11 +169,9 @@ const createComment = (number, commentsQuantity) => {
   if (commentsQuantity > 0) {
     /* цикл нужен для создания заданного количества комментариев */
     for (let i = 0; i < commentsQuantity; i++) {
-      /*функция создания комментария*/
+      /*функция создания текста комментария*/
       const createRandomMessage = () => {
         let randomMessage;
-        /* разделитель для сообщений */
-        // const messageDivider = ' ';
         /* рандомно выбираем два сообщения из массива */
         const randomMessage1 = MESSAGES[getRandomNumber(0, MESSAGES.length - 1)];
         const randomMessage2 = MESSAGES[getRandomNumber(0, MESSAGES.length - 1)];
@@ -181,7 +179,6 @@ const createComment = (number, commentsQuantity) => {
         if (randomMessage1 === randomMessage2) {
           randomMessage = randomMessage1; /* если одинаковые, выбираем первый*/
         } else {
-          // randomMessage = randomMessage1 + messageDivider + randomMessage2; /*если разные, склеиваем итоговое сообщение из обоих */
           randomMessage = `${randomMessage1} ${randomMessage2}`;
         }
         return randomMessage;
@@ -217,11 +214,8 @@ const createComment = (number, commentsQuantity) => {
 const createPhotoDescription = (number) => {
   /* определение количества комментариев */
   const commentsQuantity = getRandomNumber(MIN_COMMENTS_QUANTITY, MAX_COMMENTS_QUANTITY);
-  // const startUrl = 'photos/';
-  // const endUrl = '.jpg';
   return {
     id: number,
-    // url: startUrl + number + endUrl,
     url: `photos/${number}.jpg`,
     description: DESCRIPTION_PHOTOS[number - 1],
     likes: getRandomNumber(MIN_LIKES_QUANTITY, MAX_LIKES_QUANTITY),
