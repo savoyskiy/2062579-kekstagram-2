@@ -194,11 +194,8 @@ const createComment = (number, commentsQuantity) => {
   if (commentsQuantity > 0) {
     /* цикл нужен для создания заданного количества комментариев */
     for (let i = 0; i < commentsQuantity; i++) {
-      createRandomMessage();
 
-      getAvatar();
-
-      /* коэффициент для создания id комментариев */
+      /* коэффициент для создания id комментариев*/
       const idFactor = 10000;
 
       /* заполняем массив с комментариями */
