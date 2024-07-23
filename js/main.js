@@ -141,6 +141,18 @@ const NAMES = [
   'Яков',
   'Яна',
 ];
+
+/* количество генерируемых описаний */
+const QUANTITY_PHOTOS = 25;
+
+/* минимальное и максимальное количество комментариев */
+const MIN_COMMENTS_QUANTITY = 0;
+const MAX_COMMENTS_QUANTITY = 30;
+
+/* минимальное и максимальное количество лайков */
+const MIN_LIKES_QUANTITY = 15;
+const MAX_LIKES_QUANTITY = 200;
+
 /*фунция получения псевдослучайного числа*/
 const getRandomNumber = (a, b) => {
   const min = Math.min(a, b);
@@ -148,17 +160,6 @@ const getRandomNumber = (a, b) => {
   const result = Math.floor(Math.random() * (max - min + 1)) + min;
   return result;
 };
-
-/* количество генерируемых описаний */
-const quantityPhotos = 25;
-
-/* минимальное и максимальное количество комментариев */
-const minCommentsQuantity = 0;
-const maxCommentsQuantity = 30;
-
-/* минимальное и максимальное количество лайков */
-const minLikesQuantity = 15;
-const maxLikesQuantity = 200;
 
 /* функция генерации комментариев*/
 const createComment = (number, commentsQuantity) => {
@@ -172,7 +173,7 @@ const createComment = (number, commentsQuantity) => {
       const createRandomMessage = () => {
         let randomMessage;
         /* разделитель для сообщений */
-        const messageDivider = ' ';
+        // const messageDivider = ' ';
         /* рандомно выбираем два сообщения из массива */
         const randomMessage1 = MESSAGES[getRandomNumber(0, MESSAGES.length - 1)];
         const randomMessage2 = MESSAGES[getRandomNumber(0, MESSAGES.length - 1)];
@@ -180,7 +181,8 @@ const createComment = (number, commentsQuantity) => {
         if (randomMessage1 === randomMessage2) {
           randomMessage = randomMessage1; /* если одинаковые, выбираем первый*/
         } else {
-          randomMessage = randomMessage1 + messageDivider + randomMessage2; /*если разные, склеиваем итоговое сообщение из обоих */
+          // randomMessage = randomMessage1 + messageDivider + randomMessage2; /*если разные, склеиваем итоговое сообщение из обоих */
+          randomMessage = `${randomMessage1} ${randomMessage2}`;
         }
         return randomMessage;
       };
@@ -214,14 +216,15 @@ const createComment = (number, commentsQuantity) => {
 /*функция создания описания фото*/
 const createPhotoDescription = (number) => {
   /* определение количества комментариев */
-  const commentsQuantity = getRandomNumber(minCommentsQuantity, maxCommentsQuantity);
-  const startUrl = 'photos/';
-  const endUrl = '.jpg';
+  const commentsQuantity = getRandomNumber(MIN_COMMENTS_QUANTITY, MAX_COMMENTS_QUANTITY);
+  // const startUrl = 'photos/';
+  // const endUrl = '.jpg';
   return {
     id: number,
-    url: startUrl + number + endUrl,
+    // url: startUrl + number + endUrl,
+    url: `photos/${number}.jpg`,
     description: DESCRIPTION_PHOTOS[number - 1],
-    likes: getRandomNumber(minLikesQuantity, maxLikesQuantity),
+    likes: getRandomNumber(MIN_LIKES_QUANTITY, MAX_LIKES_QUANTITY),
     comments: createComment(number, commentsQuantity),
   };
 };
@@ -240,6 +243,6 @@ const createDescriptionsArray = (quantity) => {
 };
 
 /* создаем массив с описаниями */
-createDescriptionsArray(quantityPhotos);
+createDescriptionsArray(QUANTITY_PHOTOS);
 
 
