@@ -153,12 +153,37 @@ const MAX_COMMENTS_QUANTITY = 30;
 const MIN_LIKES_QUANTITY = 15;
 const MAX_LIKES_QUANTITY = 200;
 
+/* минимальное и максимальное количество аватарок */
+const MIN_AVATAR_NUMBER = 1;
+const MAX_AVATAR_NUMBER = 6;
+
 /*фунция получения псевдослучайного числа*/
 const getRandomNumber = (a, b) => {
   const min = Math.min(a, b);
   const max = Math.max(a, b);
   const result = Math.floor(Math.random() * (max - min + 1)) + min;
   return result;
+};
+
+/*функция создания текста комментария*/
+const createRandomMessage = () => {
+  let randomMessage;
+  /* рандомно выбираем два сообщения из массива */
+  const randomMessage1 = MESSAGES[getRandomNumber(0, MESSAGES.length - 1)];
+  const randomMessage2 = MESSAGES[getRandomNumber(0, MESSAGES.length - 1)];
+  /*сравниваем их*/
+  if (randomMessage1 === randomMessage2) {
+    randomMessage = randomMessage1; /* если одинаковые, выбираем первый*/
+  } else {
+    randomMessage = `${randomMessage1} ${randomMessage2}`;
+  }
+  return randomMessage;
+};
+
+/* функция генерации адреса аватара */
+const getAvatar = () => {
+  const avatarUrl = `img/avatar-${getRandomNumber(MIN_AVATAR_NUMBER, MAX_AVATAR_NUMBER)}.svg`;
+  return avatarUrl;
 };
 
 /* функция генерации комментариев*/
@@ -169,30 +194,9 @@ const createComment = (number, commentsQuantity) => {
   if (commentsQuantity > 0) {
     /* цикл нужен для создания заданного количества комментариев */
     for (let i = 0; i < commentsQuantity; i++) {
-      /*функция создания текста комментария*/
-      const createRandomMessage = () => {
-        let randomMessage;
-        /* рандомно выбираем два сообщения из массива */
-        const randomMessage1 = MESSAGES[getRandomNumber(0, MESSAGES.length - 1)];
-        const randomMessage2 = MESSAGES[getRandomNumber(0, MESSAGES.length - 1)];
-        /*сравниваем их*/
-        if (randomMessage1 === randomMessage2) {
-          randomMessage = randomMessage1; /* если одинаковые, выбираем первый*/
-        } else {
-          randomMessage = `${randomMessage1} ${randomMessage2}`;
-        }
-        return randomMessage;
-      };
+      createRandomMessage();
 
-      /* функция генерации адреса аватара */
-      const getAvatar = () => {
-        const minAvatarNumber = 1;
-        const maxAvatarNumber = 6;
-        const starAvatartUrl = 'img/avatar-';
-        const endAvatarUrl = '.svg';
-        const avatarUrl = starAvatartUrl + getRandomNumber(minAvatarNumber, maxAvatarNumber) + endAvatarUrl;
-        return avatarUrl;
-      };
+      getAvatar();
 
       /* коэффициент для создания id комментариев */
       const idFactor = 10000;
