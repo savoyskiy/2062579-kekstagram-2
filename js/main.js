@@ -181,10 +181,7 @@ const createRandomMessage = () => {
 };
 
 /* функция генерации адреса аватара */
-const getAvatar = () => {
-  const avatarUrl = `img/avatar-${getRandomNumber(MIN_AVATAR_NUMBER, MAX_AVATAR_NUMBER)}.svg`;
-  return avatarUrl;
-};
+const getAvatar = () => `img/avatar-${getRandomNumber(MIN_AVATAR_NUMBER, MAX_AVATAR_NUMBER)}.svg`;
 
 /* функция генерации комментариев*/
 const createComment = (id, commentsQuantity) => {
