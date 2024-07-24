@@ -187,7 +187,7 @@ const getAvatar = () => {
 };
 
 /* функция генерации комментариев*/
-const createComment = (number, commentsQuantity) => {
+const createComment = (id, commentsQuantity) => {
   /* массив с комментариями к фото, пустой */
   const commentsArray = [];
 
@@ -200,7 +200,7 @@ const createComment = (number, commentsQuantity) => {
 
       /* заполняем массив с комментариями */
       commentsArray[i] = {
-        id: number * idFactor + (i + 1), // id комментария состоит из id фото и порядкового номера комментария
+        id: id * idFactor + (i + 1), // id комментария состоит из id фото и порядкового номера комментария
         avatar: getAvatar(),
         message: createRandomMessage(),
         name: NAMES[getRandomNumber(0, NAMES.length - 1)],
@@ -211,33 +211,22 @@ const createComment = (number, commentsQuantity) => {
   return commentsArray;
 };
 
+/*переменная для порядковых номеров в createPhotoDescription*/
+let number = 1;
 /*функция создания описания фото*/
-const createPhotoDescription = (number) => {
+const createPhotoDescription = () => {
   /* определение количества комментариев */
   const commentsQuantity = getRandomNumber(MIN_COMMENTS_QUANTITY, MAX_COMMENTS_QUANTITY);
-  return {
-    id: number,
-    url: `photos/${number}.jpg`,
-    description: DESCRIPTION_PHOTOS[number - 1],
-    likes: getRandomNumber(MIN_LIKES_QUANTITY, MAX_LIKES_QUANTITY),
-    comments: createComment(number, commentsQuantity),
-  };
+
+  const photoDescription = {};
+  photoDescription.url = `photos/${number}.jpg`;
+  photoDescription.description = DESCRIPTION_PHOTOS[number - 1];
+  photoDescription.likes = getRandomNumber(MIN_LIKES_QUANTITY, MAX_LIKES_QUANTITY);
+  photoDescription.comments = createComment(number, commentsQuantity);
+  photoDescription.id = number;
+  number++;
+  return photoDescription;
 };
 
-/*итоговая функция */
-const createDescriptionsArray = (quantity) => {
-  /* массив с описаниями фото */
-  const photoDescriptions = [];
-
-  /* цикл заполнения массива с описаниями фото */
-  for (let i = 1; i <= quantity; i++) {
-    photoDescriptions[i - 1] = createPhotoDescription(i);
-  }
-
-  return photoDescriptions;
-};
-
-/* создаем массив с описаниями */
-createDescriptionsArray(QUANTITY_PHOTOS);
-
-
+/*создаем и заполняем массив с описаниями фото*/
+const descriptionsArray = Array.from({length: QUANTITY_PHOTOS}, createPhotoDescription);
