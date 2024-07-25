@@ -209,20 +209,33 @@ const createComment = (id, commentsQuantity) => {
 };
 
 /*переменная для порядковых номеров в createPhotoDescription*/
-let number = 1;
+// let number = 1;
+// /*функция создания описания фото*/
+// const createPhotoDescription = () => {
+//   /* определение количества комментариев */
+//   const commentsQuantity = getRandomNumber(MIN_COMMENTS_QUANTITY, MAX_COMMENTS_QUANTITY);
+
+//   const photoDescription = {};
+//   photoDescription.url = `photos/${number}.jpg`;
+//   photoDescription.description = DESCRIPTION_PHOTOS[number - 1];
+//   photoDescription.likes = getRandomNumber(MIN_LIKES_QUANTITY, MAX_LIKES_QUANTITY);
+//   photoDescription.comments = createComment(number, commentsQuantity);
+//   photoDescription.id = number;
+//   number++;
+//   return photoDescription;
+// };
+
 /*функция создания описания фото*/
-const createPhotoDescription = () => {
+const createPhotoDescription = (number) => {
   /* определение количества комментариев */
   const commentsQuantity = getRandomNumber(MIN_COMMENTS_QUANTITY, MAX_COMMENTS_QUANTITY);
-
-  const photoDescription = {};
-  photoDescription.url = `photos/${number}.jpg`;
-  photoDescription.description = DESCRIPTION_PHOTOS[number - 1];
-  photoDescription.likes = getRandomNumber(MIN_LIKES_QUANTITY, MAX_LIKES_QUANTITY);
-  photoDescription.comments = createComment(number, commentsQuantity);
-  photoDescription.id = number;
-  number++;
-  return photoDescription;
+  return {
+    id: number,
+    url: `photos/${number}.jpg`,
+    description: DESCRIPTION_PHOTOS[number - 1],
+    likes: getRandomNumber(MIN_LIKES_QUANTITY, MAX_LIKES_QUANTITY),
+    comments: createComment(number, commentsQuantity),
+  };
 };
 
 /*создаем и заполняем массив с описаниями фото*/
