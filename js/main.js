@@ -208,33 +208,16 @@ const createComment = (id, commentsQuantity) => {
   return commentsArray;
 };
 
-/*переменная для порядковых номеров в createPhotoDescription*/
-// let number = 1;
-// /*функция создания описания фото*/
-// const createPhotoDescription = () => {
-//   /* определение количества комментариев */
-//   const commentsQuantity = getRandomNumber(MIN_COMMENTS_QUANTITY, MAX_COMMENTS_QUANTITY);
-
-//   const photoDescription = {};
-//   photoDescription.url = `photos/${number}.jpg`;
-//   photoDescription.description = DESCRIPTION_PHOTOS[number - 1];
-//   photoDescription.likes = getRandomNumber(MIN_LIKES_QUANTITY, MAX_LIKES_QUANTITY);
-//   photoDescription.comments = createComment(number, commentsQuantity);
-//   photoDescription.id = number;
-//   number++;
-//   return photoDescription;
-// };
-
 /*функция создания описания фото*/
-const createPhotoDescription = (number) => {
+const createPhotoDescription = (_, index) => {
   /* определение количества комментариев */
   const commentsQuantity = getRandomNumber(MIN_COMMENTS_QUANTITY, MAX_COMMENTS_QUANTITY);
   return {
-    id: number,
-    url: `photos/${number}.jpg`,
-    description: DESCRIPTION_PHOTOS[number - 1],
+    id: index + 1,
+    url: `photos/${index + 1}.jpg`,
+    description: DESCRIPTION_PHOTOS[index],
     likes: getRandomNumber(MIN_LIKES_QUANTITY, MAX_LIKES_QUANTITY),
-    comments: createComment(number, commentsQuantity),
+    comments: createComment(index + 1, commentsQuantity),
   };
 };
 
