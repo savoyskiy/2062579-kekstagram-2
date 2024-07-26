@@ -183,41 +183,41 @@ const createRandomMessage = () => {
 /* функция генерации адреса аватара */
 const getAvatar = () => `img/avatar-${getRandomNumber(MIN_AVATAR_NUMBER, MAX_AVATAR_NUMBER)}.svg`;
 
-/* функция генерации комментариев*/
-const createComment = (id, commentsQuantity) => {
-  /* массив с комментариями к фото, пустой */
-  const commentsArray = [];
-
+/* функция генерации массива комментариев*/
+const createCommentsArray = (id, commentsQuantity) => {
   if (commentsQuantity > 0) {
-    /* цикл нужен для создания заданного количества комментариев */
-    for (let i = 0; i < commentsQuantity; i++) {
-
-      /* коэффициент для создания id комментариев*/
-      const idFactor = 10000;
-
-      /* заполняем массив с комментариями */
-      commentsArray[i] = {
-        id: id * idFactor + (i + 1), // id комментария состоит из id фото и порядкового номера комментария
+    /* коэффициент для создания id комментариев*/
+    const idFactor = 10000;
+    /* функция создания одного комментария */
+    const createComment = (_, index) => {
+      const idPhoto = id;
+      return {
+        id: idPhoto * idFactor + (index + 1), // id комментария состоит из id фото и порядкового номера комментария
         avatar: getAvatar(),
         message: createRandomMessage(),
         name: NAMES[getRandomNumber(0, NAMES.length - 1)],
       };
-    }
+    };
+    /*создаем массив с комментариями к фото*/
+    const commentsArray = Array.from({length: commentsQuantity}, createComment);
+    return commentsArray;
+  } else { /* если комментариев нет, создаем пустой массив */
+    const commentsArray = [];
+    return commentsArray;
   }
-
-  return commentsArray;
 };
 
 /*функция создания описания фото*/
 const createPhotoDescription = (_, index) => {
   /* определение количества комментариев */
   const commentsQuantity = getRandomNumber(MIN_COMMENTS_QUANTITY, MAX_COMMENTS_QUANTITY);
+  const idNumber = index + 1;
   return {
-    id: index + 1,
-    url: `photos/${index + 1}.jpg`,
+    id: idNumber,
+    url: `photos/${idNumber}.jpg`,
     description: DESCRIPTION_PHOTOS[index],
     likes: getRandomNumber(MIN_LIKES_QUANTITY, MAX_LIKES_QUANTITY),
-    comments: createComment(index + 1, commentsQuantity),
+    comments: createCommentsArray(idNumber, commentsQuantity),
   };
 };
 
