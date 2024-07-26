@@ -222,4 +222,5 @@ const createPhotoDescription = (_, index) => {
 };
 
 /*создаем и заполняем массив с описаниями фото*/
+// eslint-disable-next-line no-unused-vars
 const descriptionsArray = Array.from({length: QUANTITY_PHOTOS}, createPhotoDescription);
