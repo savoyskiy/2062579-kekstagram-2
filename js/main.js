@@ -1,3 +1,5 @@
+import {getRandomNumber} from './utilities.js';
+
 const MESSAGES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -156,14 +158,6 @@ const MAX_LIKES_QUANTITY = 200;
 /* минимальное и максимальное количество аватарок */
 const MIN_AVATAR_NUMBER = 1;
 const MAX_AVATAR_NUMBER = 6;
-
-/*фунция получения псевдослучайного числа*/
-const getRandomNumber = (a, b) => {
-  const min = Math.min(a, b);
-  const max = Math.max(a, b);
-  const result = Math.floor(Math.random() * (max - min + 1)) + min;
-  return result;
-};
 
 /*функция создания текста комментария*/
 const createRandomMessage = () => {
