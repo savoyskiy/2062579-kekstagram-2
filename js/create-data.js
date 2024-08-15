@@ -179,7 +179,7 @@ const getAvatar = () => `img/avatar-${getRandomNumber(MIN_AVATAR_NUMBER, MAX_AVA
 
 /* функция генерации массива комментариев*/
 const createCommentsArray = (id, commentsQuantity) => {
-  if (commentsQuantity > 0) {
+  if (commentsQuantity >= 0) {
     /* коэффициент для создания id комментариев*/
     const idFactor = 10000;
     /* функция создания одного комментария */
@@ -193,11 +193,7 @@ const createCommentsArray = (id, commentsQuantity) => {
       };
     };
     /*создаем массив с комментариями к фото*/
-    const commentsArray = Array.from({length: commentsQuantity}, createComment);
-    return commentsArray;
-  } else { /* если комментариев нет, создаем пустой массив */
-    const commentsArray = [];
-    return commentsArray;
+    return Array.from({length: commentsQuantity}, createComment);
   }
 };
 
@@ -205,13 +201,12 @@ const createCommentsArray = (id, commentsQuantity) => {
 const createPhotoDescription = (_, index) => {
   /* определение количества комментариев */
   const commentsQuantity = getRandomNumber(MIN_COMMENTS_QUANTITY, MAX_COMMENTS_QUANTITY);
-  const idNumber = index + 1;
   return {
-    id: idNumber,
-    url: `photos/${idNumber}.jpg`,
+    id: index + 1,
+    url: `photos/${index + 1}.jpg`,
     description: DESCRIPTION_PHOTOS[index],
     likes: getRandomNumber(MIN_LIKES_QUANTITY, MAX_LIKES_QUANTITY),
-    comments: createCommentsArray(idNumber, commentsQuantity),
+    comments: createCommentsArray(index + 1, commentsQuantity),
   };
 };
 
