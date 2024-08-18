@@ -45,9 +45,10 @@
 
 // 4. Функция "Делу - время"
 const calculateWorkTime = (startWork, endWork, startMeeting, timeMeeting) => {
-  const startWorkTime = Number(startWork.split(':')[0]) * 60 + Number(startWork.split(':')[1]);
-  const endWorkTime = Number(endWork.split(':')[0]) * 60 + Number(endWork.split(':')[1]);
-  const startMeetingTime = Number(startMeeting.split(':')[0]) * 60 + Number(startMeeting.split(':')[1]);
+  const MINUTES_IN_HOUR = 60;
+  const startWorkTime = Number(startWork.split(':')[0]) * MINUTES_IN_HOUR + Number(startWork.split(':')[1]);
+  const endWorkTime = Number(endWork.split(':')[0]) * MINUTES_IN_HOUR + Number(endWork.split(':')[1]);
+  const startMeetingTime = Number(startMeeting.split(':')[0]) * MINUTES_IN_HOUR + Number(startMeeting.split(':')[1]);
   const timeToEnd = endWorkTime - startMeetingTime;
 
   if (startMeetingTime < startWorkTime || startMeetingTime > endWorkTime || timeToEnd < timeMeeting) {
