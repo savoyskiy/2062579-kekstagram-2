@@ -45,26 +45,10 @@
 
 // 4. Функция "Делу - время"
 const calculateWorkTime = (startWork, endWork, startMeeting, timeMeeting) => {
-  const startWorkSplit = startWork.split(':');
-  const endWorkSplit = endWork.split(':');
-  const startMeetingSplit = startMeeting.split(':');
-
-  const startWorkHour = Number(startWorkSplit[0]);
-  const startWorkMinute = Number(startWorkSplit[1]);
-  const endWorkHour = Number(endWorkSplit[0]);
-  const endWorkMinute = Number(endWorkSplit[1]);
-  const startMeetingHour = Number(startMeetingSplit[0]);
-  const startMeetingMinute = Number(startMeetingSplit[1]);
-
-  const startWorkTime = startWorkHour * 60 + startWorkMinute;
-  const endWorkTime = endWorkHour * 60 + endWorkMinute;
-  const startMeetingTime = startMeetingHour * 60 + startMeetingMinute;
+  const startWorkTime = Number(startWork.split(':')[0]) * 60 + Number(startWork.split(':')[1]);
+  const endWorkTime = Number(endWork.split(':')[0]) * 60 + Number(endWork.split(':')[1]);
+  const startMeetingTime = Number(startMeeting.split(':')[0]) * 60 + Number(startMeeting.split(':')[1]);
   const timeToEnd = endWorkTime - startMeetingTime;
-
-  // console.log(startWorkHour, startWorkMinute, startWorkTime);
-  // console.log(endWorkHour, endWorkMinute, endWorkTime);
-  // console.log(startMeetingHour, startMeetingMinute, startMeetingTime);
-  // console.log(timeToEnd, timeMeeting);
 
   if (startMeetingTime < startWorkTime || startMeetingTime > endWorkTime || timeToEnd < timeMeeting) {
     return false;
@@ -74,4 +58,3 @@ const calculateWorkTime = (startWork, endWork, startMeeting, timeMeeting) => {
 };
 
 calculateWorkTime('08:30', '17:30', '14:00', 90);
-
