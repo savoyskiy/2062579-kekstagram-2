@@ -51,11 +51,7 @@ const calculateWorkTime = (startWork, endWork, startMeeting, timeMeeting) => {
   const startMeetingTime = Number(startMeeting.split(':')[0]) * MINUTES_IN_HOUR + Number(startMeeting.split(':')[1]);
   const timeToEnd = endWorkTime - startMeetingTime;
 
-  if (startMeetingTime < startWorkTime || startMeetingTime > endWorkTime || timeToEnd < timeMeeting) {
-    return false;
-  } else {
-    return true;
-  }
+  return !(startMeetingTime < startWorkTime || startMeetingTime > endWorkTime || timeToEnd < timeMeeting);
 };
 
 calculateWorkTime('08:30', '17:30', '14:00', 90);
