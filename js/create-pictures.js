@@ -13,14 +13,14 @@ const picturesDescriptionsArray = createDescriptionsArray();
 const picturesArrayFragment = document.createDocumentFragment();
 
 // создаю фрагмент с изображениями
-picturesDescriptionsArray.forEach((dates) => {
+picturesDescriptionsArray.forEach(({url, description, likes, comments}) => {
 // клонирую шаблон и помещаю в контейнер
   const picture = pictureTemplate.cloneNode(true);
   // прописываю данные изображений
-  picture.querySelector('.picture__img').src = dates.url;
-  picture.querySelector('.picture__img').alt = dates.description;
-  picture.querySelector('.picture__likes').textContent = dates.likes;
-  picture.querySelector('.picture__comments').textContent = dates.comments;
+  picture.querySelector('.picture__img').src = url;
+  picture.querySelector('.picture__img').alt = description;
+  picture.querySelector('.picture__likes').textContent = likes;
+  picture.querySelector('.picture__comments').textContent = comments.length;
   // загружаю изображение во фрагмент
   picturesArrayFragment.appendChild(picture);
 });
