@@ -20,7 +20,7 @@ picturesDescriptionsArray.forEach((dates) => {
   picture.querySelector('.picture__img').src = dates.url;
   picture.querySelector('.picture__img').alt = dates.description;
   picture.querySelector('.picture__likes').textContent = dates.likes;
-  picture.querySelector('.picture__comments').textContent = dates.comments.length;
+  picture.querySelector('.picture__comments').textContent = dates.comments;
   // загружаю изображение во фрагмент
   picturesArrayFragment.appendChild(picture);
 });
