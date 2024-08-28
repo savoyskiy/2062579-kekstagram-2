@@ -12,7 +12,7 @@ const picturesDescriptionsArray = createDescriptionsArray();
 // создаю фрагмент, через который буду подключать массив с изображениями
 const picturesArrayFragment = document.createDocumentFragment();
 
-// создаю массив с изображениями
+// создаю фрагмент с изображениями
 picturesDescriptionsArray.forEach((dates) => {
 // клонирую шаблон и помещаю в контейнер
   const picture = pictureTemplate.cloneNode(true);
@@ -21,7 +21,7 @@ picturesDescriptionsArray.forEach((dates) => {
   picture.querySelector('.picture__img').alt = dates.description;
   picture.querySelector('.picture__likes').textContent = dates.likes;
   picture.querySelector('.picture__comments').textContent = dates.comments.length;
-  // загружаю изображение во фрашмент
+  // загружаю изображение во фрагмент
   picturesArrayFragment.appendChild(picture);
 });
 
