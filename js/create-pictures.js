@@ -1,10 +1,10 @@
 import {createDescriptionsArray} from './create-data.js';
 
 // нахожу контейнер для изображений
-const picturesArray = document.querySelector('.pictures');
+const picturesListElement = document.querySelector('.pictures');
 
 // нахожу шаблон
-const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const pictureTemplateElement = document.querySelector('#picture').content.querySelector('.picture');
 
 // подключаю импортированную функцию
 const picturesDescriptionsArray = createDescriptionsArray();
@@ -15,7 +15,7 @@ const picturesArrayFragment = document.createDocumentFragment();
 // создаю фрагмент с изображениями
 picturesDescriptionsArray.forEach(({url, description, likes, comments}) => {
 // клонирую шаблон и помещаю в контейнер
-  const picture = pictureTemplate.cloneNode(true);
+  const picture = pictureTemplateElement.cloneNode(true);
   // прописываю данные изображений
   picture.querySelector('.picture__img').src = url;
   picture.querySelector('.picture__img').alt = description;
@@ -26,4 +26,4 @@ picturesDescriptionsArray.forEach(({url, description, likes, comments}) => {
 });
 
 // загружаю фрагмент в контейнер для изображений
-picturesArray.appendChild(picturesArrayFragment);
+picturesListElement.appendChild(picturesArrayFragment);
