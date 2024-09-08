@@ -29,6 +29,8 @@ const closeBigPicture = () => {
   bigPictureElement.classList.add('hidden');
   // снимаю класс .modal-open со страницы
   body.classList.remove('modal-open');
+  // удаляю обработчик по нажатию Esc
+  document.removeEventListener('keydown', onEscapeKeyDown);
 };
 
 // функция закрывания большой картинки нажатием на Esc
