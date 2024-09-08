@@ -23,6 +23,21 @@ const bigPictureCommentsLoaderElement = bigPictureElement.querySelector('.social
 // страница
 const body = document.querySelector('BODY');
 
+// функция закрывания большой картинки
+const closeBigPicture = () => {
+  // скрываю большую картинку
+  bigPictureElement.classList.add('hidden');
+  // снимаю класс .modal-open со страницы
+  body.classList.remove('modal-open');
+};
+
+// функция закрывания большой картинки нажатием на Esc
+const onEscapeKeyDown = (evt) => {
+  if (evt.key === 'Escape') {
+    closeBigPicture();
+  }
+};
+
 // функция показа полноразмерной картинки
 const showBigPicture = (pictureId) => {
   // нахожу нужную картинку в блоке с данными
@@ -54,20 +69,8 @@ const showBigPicture = (pictureId) => {
   bigPictureElement.classList.remove('hidden');
   // вешаю класс .modal-open на страницу
   body.classList.add('modal-open');
-};
-
-// функция закрывания большой картинки
-const closeBigPicture = () => {
-  // скрываю большую картинку
-  bigPictureElement.classList.add('hidden');
-  // снимаю класс .modal-open со страницы
-  body.classList.remove('modal-open');
-};
-// функция закрывания большой картинки нажатием на Esc
-const onEscapeKeyDown = (evt) => {
-  if (evt.key === 'Escape') {
-    closeBigPicture();
-  }
+  // закрываю большую картинку клавишей Esc
+  document.addEventListener('keydown', onEscapeKeyDown);
 };
 
 // открываю большую картинку кликом по миниатюре
@@ -84,5 +87,3 @@ picturesListElement.addEventListener('click', (evt) => {
 // закрываю большую картинку кликом по крестику
 bigPictureCloseElement.addEventListener('click', closeBigPicture);
 
-// закрываю большую картинку клавишей Esc
-document.addEventListener('keydown', onEscapeKeyDown);
