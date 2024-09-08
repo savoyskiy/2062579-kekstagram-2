@@ -1,18 +1,72 @@
-const bigPictureElement = document.querySelector('.big-picture');
-const picturesListElement = document.querySelector('.pictures');
-const bigPictureCloser = bigPictureElement.querySelector('.big-picture__cancel');
+import {picturesListElement} from './create-pictures.js';
+import {picturesDescriptionsArray} from './create-pictures.js';
 
-const showHiddenElement = (evt) => {
-  if (evt.target.closest('.pictures')) {
-    bigPictureElement.classList.remove('hidden');
-  }
+// элемент с большой картинкой в ДОМ
+const bigPictureElement = document.querySelector('.big-picture');
+
+// закрывающий крестик на большой картинке
+const bigPictureCloseElement = bigPictureElement.querySelector('.big-picture__cancel');
+// элемент с изображением большой картинки
+const bigPictureImageElement = bigPictureElement.querySelector('.big-picture__img').querySelector('IMG');
+// элемент со счетчиком лайков на большой картинке
+const bigPictureLikesCountElement = bigPictureElement.querySelector('.likes-count');
+// элемент со списком комментариев большой картинки
+const bigPictureCommentsListElement = bigPictureElement.querySelector('.social__comments');
+// элемент одного комментария из списка
+const bigPictureCommentItemElement = bigPictureElement.querySelector('.social__comment');
+// элемент с описанием картинки
+const bigPictureCaptionElement = bigPictureElement.querySelector('.social__caption');
+// элемент с количеством комментариев
+const bigPictureCommentsCountElement = bigPictureElement.querySelector('.social__comment-count');
+// элемент-кнопка для добавления нового комментария
+const bigPictureCommentsLoaderElement = bigPictureElement.querySelector('.social__comments-loader');
+
+// функция показа полноразмерной картинки
+const showBigPicture = (pictureId) => {
+  const currentPicture = picturesDescriptionsArray.find((picture) => picture.id === Number(pictureId));
+  const pictureCommentsFragment = document.createDocumentFragment();
+
+  bigPictureImageElement.src = currentPicture.url;
+  bigPictureLikesCountElement.textContent = currentPicture.likes;
+  bigPictureCommentsListElement.innerHTML = '';
+
+  currentPicture.comments.forEach((comment) => {
+    const bigPictureCommentItem = bigPictureCommentItemElement.cloneNode(true);
+
+    bigPictureCommentItem.querySelector('.social__picture').src = comment.avatar;
+    bigPictureCommentItem.querySelector('.social__picture').alt = comment.name;
+    bigPictureCommentItem.querySelector('.social__text').textContent = comment.message;
+
+    pictureCommentsFragment.appendChild(bigPictureCommentItem);
+  });
+
+  bigPictureCommentsListElement.appendChild(pictureCommentsFragment);
+  bigPictureCaptionElement.textContent = currentPicture.description;
+  // прячу элементы, которые нужно убрать
+  bigPictureCommentsCountElement.classList.add('hidden');
+  bigPictureCommentsLoaderElement.classList.add('hidden');
+  // открываю большую картинку
+  bigPictureElement.classList.remove('hidden');
+  // вешаю класс .modal-open на страницу
+  document.body.classList.add('modal-open');
 };
 
+// функция закрывания большой картинки
 const closeBigPicture = () => {
   bigPictureElement.classList.add('hidden');
 };
 
-picturesListElement.addEventListener('click', showHiddenElement);
+// открываю большую картинку кликом по миниатюре
+picturesListElement.addEventListener('click', (evt) => {
+  const currentPicture = evt.target.closest('.picture');
 
-bigPictureCloser.addEventListener('click', closeBigPicture);
+  if (currentPicture) {
+    // отменяю переход по ссылке при клике
+    evt.preventDefault();
+    showBigPicture(currentPicture.dataset.pictureId);
+  }
+});
+
+// закрываю большую картинку кликом по крестику
+bigPictureCloseElement.addEventListener('click', closeBigPicture);
 
