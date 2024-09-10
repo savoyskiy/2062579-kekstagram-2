@@ -1,5 +1,5 @@
-import {picturesListElement} from './create-pictures.js';
-import {picturesDescriptionsArray} from './create-pictures.js';
+import {picturesListElement, picturesDescriptionsArray} from './create-pictures.js';
+import {isEscapeKey} from './utilities.js';
 
 // элемент с большой картинкой в ДОМ
 const bigPictureElement = document.querySelector('.big-picture');
@@ -30,12 +30,13 @@ const closeBigPicture = () => {
   // снимаю класс .modal-open со страницы
   body.classList.remove('modal-open');
   // удаляю обработчик по нажатию Esc
+  // eslint-disable-next-line no-use-before-define
   document.removeEventListener('keydown', onEscapeKeyDown);
 };
 
 // функция закрывания большой картинки нажатием на Esc
 const onEscapeKeyDown = (evt) => {
-  if (evt.key === 'Escape') {
+  if (isEscapeKey(evt)) {
     closeBigPicture();
   }
 };

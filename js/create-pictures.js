@@ -29,5 +29,5 @@ picturesDescriptionsArray.forEach(({id, url, description, likes, comments}) => {
 // загружаю фрагмент в контейнер для изображений
 picturesListElement.appendChild(picturesArrayFragment);
 // экспортирую результат
-export {picturesListElement};
-export {picturesDescriptionsArray};
+export {picturesListElement, picturesDescriptionsArray};
+

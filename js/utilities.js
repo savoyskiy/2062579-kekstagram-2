@@ -6,4 +6,7 @@ const getRandomNumber = (a, b) => {
   return result;
 };
 
-export {getRandomNumber};
+// функция проверяющая нажата ли клавиша Escape
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {getRandomNumber, isEscapeKey};
