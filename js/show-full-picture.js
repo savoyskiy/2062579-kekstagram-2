@@ -11,16 +11,8 @@ const bigPictureCloseElement = bigPictureElement.querySelector('.big-picture__ca
 const bigPictureImageElement = bigPictureElement.querySelector('.big-picture__img').querySelector('IMG');
 // элемент со счетчиком лайков на большой картинке
 const bigPictureLikesCountElement = bigPictureElement.querySelector('.likes-count');
-// элемент со списком комментариев большой картинки ++
-const bigPictureCommentsListElement = bigPictureElement.querySelector('.social__comments');
-// элемент одного комментария из списка ++
-// const bigPictureCommentItemElement = bigPictureElement.querySelector('.social__comment');
 // элемент с описанием картинки
 const bigPictureCaptionElement = bigPictureElement.querySelector('.social__caption');
-// // элемент с количеством комментариев ++
-// const bigPictureCommentsCountElement = bigPictureElement.querySelector('.social__comment-count');
-// // элемент-кнопка для добавления нового комментария ++
-// const bigPictureCommentsLoaderElement = bigPictureElement.querySelector('.social__comments-loader');
 // страница
 const body = document.querySelector('BODY');
 
@@ -54,27 +46,8 @@ const showBigPicture = (pictureId) => {
   bigPictureLikesCountElement.textContent = currentPicture.likes;
   // заполняю описание большой картинки
   bigPictureCaptionElement.textContent = currentPicture.description;
-  // создаю список комментариев ++
-  bigPictureCommentsListElement.innerHTML = '';
 
   createShowingComments(currentPicture.comments);
-  // // создаю фрагмент для комментариев большой картинки ++
-  // const pictureCommentsFragment = document.createDocumentFragment();
-  // // формирую блок с комментариями
-  // currentPicture.comments.forEach((comment) => {
-  //   const bigPictureCommentItem = bigPictureCommentItemElement.cloneNode(true); //++
-
-  //   bigPictureCommentItem.querySelector('.social__picture').src = comment.avatar; //++
-  //   bigPictureCommentItem.querySelector('.social__picture').alt = comment.name; //++
-  //   bigPictureCommentItem.querySelector('.social__text').textContent = comment.message; //++
-
-  //   pictureCommentsFragment.appendChild(bigPictureCommentItem); //++
-  // });
-
-  // bigPictureCommentsListElement.appendChild(pictureCommentsFragment); //++
-  // // прячу элементы, которые нужно убрать
-  // bigPictureCommentsCountElement.classList.add('hidden');
-  // bigPictureCommentsLoaderElement.classList.add('hidden');
   // открываю большую картинку
   bigPictureElement.classList.remove('hidden');
   // вешаю класс .modal-open на страницу
