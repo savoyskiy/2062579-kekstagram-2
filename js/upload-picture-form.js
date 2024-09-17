@@ -34,8 +34,8 @@ const closePictureUploadForm = () => {
 
 // закрываю форму клавишей Esc
 const onEscapeKeyDown = (evt) => {
-  // проверяю, фокус на форме или нет
-  if (isEscapeKey(evt) && !evt.target.classList.contains('text__hashtags')) {
+  // проверяю, что фокус не на полях ввода хэштегов и комментария
+  if (isEscapeKey(evt) && !evt.target.classList.contains('text__hashtags') && !evt.target.classList.contains('text__description')) {
     evt.preventDefault();
     closePictureUploadForm();
   }
@@ -63,14 +63,14 @@ const submitPictureUploadForm = (evt) => {
   }
 };
 
-//
+// функция валидации
 const onHashtagsInput = () => {
   isHashtagsValid(inputHashtagsElement.value);
 };
 // валидация Pristine
 pristine.addValidator(inputHashtagsElement, isHashtagsValid, errorValue, 2, false);
 
-// вешаю прослушиваетль на инпут загрузки изображения
+// вешаю прослушиватель на инпут загрузки изображения
 pictureUploadFileElement.addEventListener('change', openPictureUploadForm);
 
 // добавляю прослушиватель на поле ввода хэштегов для проверки
