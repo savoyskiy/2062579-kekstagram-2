@@ -1,5 +1,5 @@
 import {isEscapeKey} from './utilities.js';
-import {isHashtagsValid, errorHashtagText} from './validation-hashtags.js';
+import {isHashtagsValid, errorHashtagMessage} from './validation-hashtags.js';
 import {validateCommentLength, errorCommentMessage} from './validation-comments.js';
 
 // форма загрузки изображения
@@ -66,24 +66,14 @@ const submitPictureUploadForm = (evt) => {
   }
 };
 
-// функция валидации хэштегов
-const onHashtagsInput = () => {
-  isHashtagsValid(inputHashtagsElement.value);
-};
 // валидация хэштегов в Pristine
-pristine.addValidator(inputHashtagsElement, isHashtagsValid, errorHashtagText);
+pristine.addValidator(inputHashtagsElement, isHashtagsValid, errorHashtagMessage);
 
 // валидация комментария в Pristine
 pristine.addValidator(textCommentElement, validateCommentLength, errorCommentMessage);
 
 // вешаю прослушиватель на инпут загрузки изображения
 pictureUploadFileElement.addEventListener('change', openPictureUploadForm);
-
-// добавляю прослушиватель на поле ввода хэштегов для проверки
-inputHashtagsElement.addEventListener('input', onHashtagsInput);
-
-// добавляю прослушиватель на поле ввода комментария для проверки
-textCommentElement.addEventListener('change', validateCommentLength);
 
 // добавляю прослушиватель на форму для отправки
 pictureUploadFormElement.addEventListener('submit', submitPictureUploadForm);

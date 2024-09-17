@@ -9,7 +9,7 @@ let textCommentValue = '';
 // сообщение об ошибке
 const errorCommentMessage = 'Длина комментария не более 140 символов';
 // функция проверки длины комментария
-const validateCommentLength = () => HASHTAG_LENGTH > textCommentValue.length;
+const validateCommentLength = () => HASHTAG_LENGTH >= textCommentValue.length;
 
 // получаю содержимое textarea
 textCommentElement.addEventListener('change', () => {

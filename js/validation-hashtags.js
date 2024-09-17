@@ -5,7 +5,7 @@ const HASHTAGS_NUMBER = 5;
 // сообщение об ошибке
 let errorMessage = '';
 
-const errorHashtagText = () => errorMessage;
+const errorHashtagMessage = () => errorMessage;
 
 const isHashtagsValid = (value) => {
   // обнуляю текст сообщения об ошибке
@@ -16,8 +16,8 @@ const isHashtagsValid = (value) => {
   if(inputText.length === 0) {
     return true;
   }
-
-  const inputArray = inputText.split(/\s+/); // разделяю по пробелам на массив из отдельных хэштегов
+  // разделяю по пробелам на массив из отдельных хэштегов
+  const inputArray = inputText.split(/\s+/);
 
   // объект с правилами и проверками
   const rulesObject = [
@@ -63,4 +63,4 @@ const isHashtagsValid = (value) => {
 };
 
 // экспортирую
-export {isHashtagsValid, errorHashtagText};
+export {isHashtagsValid, errorHashtagMessage};
