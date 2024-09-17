@@ -22,6 +22,11 @@ const isHashtagsValid = (value) => {
   // объект с правилами и проверками
   const rulesObject = [
     {
+      check: inputArray.length > HASHTAGS_NUMBER, // проверку на количество хэштегов ставлю первой для лучшего UI
+      // eslint-disable-next-line no-template-curly-in-string, prefer-template
+      errorText: 'Количество хэштегов не более ' + HASHTAGS_NUMBER,
+    },
+    {
       check: inputArray.some((item) => item[0] !== '#'),
       errorText: 'Начинайте хэштег с решетки `#`'
     },
@@ -39,16 +44,11 @@ const isHashtagsValid = (value) => {
     },
     {
       check: inputArray.some((item) => item.length > HASHTAG_LENGTH),
-      // eslint-disable-next-line no-template-curly-in-string
-      errorText: 'Длина хэштега с решеткой ${HASHTAG_LENGTH} символов',
+      // eslint-disable-next-line no-template-curly-in-string, prefer-template
+      errorText: 'Длина хэштега с решеткой ' + HASHTAG_LENGTH + ' символов',
     },
     {
-      check: inputArray.length > HASHTAGS_NUMBER,
-      // eslint-disable-next-line no-template-curly-in-string
-      errorText: 'Количество хэштегов не более ${HASHTAGS_NUMBER}',
-    },
-    {
-      check: inputArray.some((item) => !/^#[a-zа-яё0-9]{1.19}$/i.test(item)),
+      check: inputArray.some((item) => !/^#[a-zа-яё0-9]{1,19}$/i.test(item)),
       errorText: 'Хэштег может состоять только из букв и цифр'
     }
   ];
