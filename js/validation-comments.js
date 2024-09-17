@@ -12,7 +12,7 @@ const errorCommentMessage = 'Длина комментария не более 1
 const validateCommentLength = () => HASHTAG_LENGTH >= textCommentValue.length;
 
 // получаю содержимое textarea
-textCommentElement.addEventListener('change', () => {
+textCommentElement.addEventListener('input', () => {
   textCommentValue = textCommentElement.value;
 });
 // экспортирую
