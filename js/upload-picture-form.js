@@ -1,5 +1,6 @@
 import {isEscapeKey} from './utilities.js';
-import {isHashtagsValid, errorValue} from './validation-hashtags.js';
+import {isHashtagsValid, errorHashtagText} from './validation-hashtags.js';
+import {validateCommentLength, errorCommentMessage} from './validation-comments.js';
 
 // форма загрузки изображения
 const pictureUploadFormElement = document.querySelector('.img-upload__form');
@@ -11,11 +12,13 @@ const pictureUploadOverlayElement = pictureUploadFormElement.querySelector('.img
 const pictureUploadCancelElement = pictureUploadFormElement.querySelector('.img-upload__cancel');
 // поле ввода хэштегов
 const inputHashtagsElement = pictureUploadFormElement.querySelector('.text__hashtags');
+// поле ввода комментария
+const textCommentElement = pictureUploadFormElement.querySelector('.text__description');
 
 // подключаю и настраиваю Pristine
 const pristine = new Pristine(pictureUploadFormElement, {
   classTo: 'img-upload__form',
-  errorTextParent: 'img-upload__field-wrapper', // точно сюда?
+  errorTextParent: 'img-upload__field-wrapper',
   errorTextClass: 'img-upload__field-wrapper--error',
 });
 
@@ -63,18 +66,24 @@ const submitPictureUploadForm = (evt) => {
   }
 };
 
-// функция валидации
+// функция валидации хэштегов
 const onHashtagsInput = () => {
   isHashtagsValid(inputHashtagsElement.value);
 };
-// валидация Pristine
-pristine.addValidator(inputHashtagsElement, isHashtagsValid, errorValue, 2, false);
+// валидация хэштегов в Pristine
+pristine.addValidator(inputHashtagsElement, isHashtagsValid, errorHashtagText);
+
+// валидация комментария в Pristine
+pristine.addValidator(textCommentElement, validateCommentLength, errorCommentMessage);
 
 // вешаю прослушиватель на инпут загрузки изображения
 pictureUploadFileElement.addEventListener('change', openPictureUploadForm);
 
 // добавляю прослушиватель на поле ввода хэштегов для проверки
 inputHashtagsElement.addEventListener('input', onHashtagsInput);
+
+// добавляю прослушиватель на поле ввода комментария для проверки
+textCommentElement.addEventListener('change', validateCommentLength);
 
 // добавляю прослушиватель на форму для отправки
 pictureUploadFormElement.addEventListener('submit', submitPictureUploadForm);

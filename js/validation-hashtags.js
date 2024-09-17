@@ -5,7 +5,7 @@ const HASHTAGS_NUMBER = 5;
 // сообщение об ошибке
 let errorMessage = '';
 
-const errorValue = () => errorMessage;
+const errorHashtagText = () => errorMessage;
 
 const isHashtagsValid = (value) => {
   // обнуляю текст сообщения об ошибке
@@ -63,4 +63,4 @@ const isHashtagsValid = (value) => {
 };
 
 // экспортирую
-export {isHashtagsValid, errorValue};
+export {isHashtagsValid, errorHashtagText};
