@@ -38,9 +38,17 @@ const closePictureUploadForm = () => {
 // закрываю форму клавишей Esc
 const onEscapeKeyDown = (evt) => {
   // проверяю, что фокус не на полях ввода хэштегов и комментария
-  if (isEscapeKey(evt) && !evt.target.classList.contains('text__hashtags') && !evt.target.classList.contains('text__description')) {
+  // if (isEscapeKey(evt) && !evt.target.classList.contains('text__hashtags') && !evt.target.classList.contains('text__description')) {
+  //   evt.preventDefault();
+  //   closePictureUploadForm();
+  // }
+  if(isEscapeKey(evt)) {
     evt.preventDefault();
-    closePictureUploadForm();
+    if(document.activeElement === inputHashtagsElement || document.activeElement === textCommentElement) {
+      evt.stopPropagation();
+    } else {
+      closePictureUploadForm();
+    }
   }
 };
 
