@@ -1,6 +1,7 @@
 import {isEscapeKey} from './utilities.js';
 import {isHashtagsValid, errorHashtagMessage} from './validation-hashtags.js';
 import {validateCommentLength, errorCommentMessage} from './validation-comments.js';
+import {onEffectChange} from './control-slider-effects.js';
 
 // форма загрузки изображения
 const pictureUploadFormElement = document.querySelector('.img-upload__form');
@@ -14,6 +15,8 @@ const pictureUploadCancelElement = pictureUploadFormElement.querySelector('.img-
 const inputHashtagsElement = pictureUploadFormElement.querySelector('.text__hashtags');
 // поле ввода комментария
 const textCommentElement = pictureUploadFormElement.querySelector('.text__description');
+// список выбора эффектов
+const effectListElement = pictureUploadFormElement.querySelector('.effects__list');
 
 // подключаю и настраиваю Pristine
 const pristine = new Pristine(pictureUploadFormElement, {
@@ -37,10 +40,14 @@ const closePictureUploadForm = () => {
 
 // закрываю форму клавишей Esc
 const onEscapeKeyDown = (evt) => {
-  // проверяю, что фокус не на полях ввода хэштегов и комментария
-  if (isEscapeKey(evt) && !evt.target.classList.contains('text__hashtags') && !evt.target.classList.contains('text__description')) {
+  if(isEscapeKey(evt)) {
     evt.preventDefault();
-    closePictureUploadForm();
+    // проверяю, что фокус на полях ввода хэштегов и комментария
+    if(document.activeElement === inputHashtagsElement || document.activeElement === textCommentElement) {
+      evt.stopPropagation();
+    } else {
+      closePictureUploadForm();
+    }
   }
 };
 
@@ -77,4 +84,7 @@ pictureUploadFileElement.addEventListener('change', openPictureUploadForm);
 
 // добавляю прослушиватель на форму для отправки
 pictureUploadFormElement.addEventListener('submit', submitPictureUploadForm);
+
+// подключаю прослушиватель на изменение эффектов
+effectListElement.addEventListener('input', onEffectChange);
 
