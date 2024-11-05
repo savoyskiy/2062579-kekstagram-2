@@ -1,10 +1,7 @@
-let gotData = 0;
+const getServerData = async () => {
+  const response = await fetch('https://31.javascript.htmlacademy.pro/kekstagram/data');
+  const data = await response.json();
+  return data;
+};
 
-fetch('https://31.javascript.htmlacademy.pro/kekstagram/data')
-  .then((response) => response.json())
-  .then((data) => {
-    gotData = data;
-    return gotData;
-  });
-
-export {gotData};
+export {getServerData};
