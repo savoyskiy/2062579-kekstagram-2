@@ -1,3 +1,4 @@
+// модуль генерирует случайные данные, можно удалить
 import {getRandomNumber} from './utilities.js';
 
 const MESSAGES = [
