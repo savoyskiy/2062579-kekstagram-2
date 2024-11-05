@@ -86,5 +86,5 @@ pictureUploadFileElement.addEventListener('change', openPictureUploadForm);
 pictureUploadFormElement.addEventListener('submit', submitPictureUploadForm);
 
 // подключаю прослушиватель на изменение эффектов
-effectListElement.addEventListener('input', onEffectChange);
+effectListElement.addEventListener('change', onEffectChange);
 
