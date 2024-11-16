@@ -6,7 +6,7 @@ const serverUrlPost = 'https://31.javascript.htmlacademy.pro/kekstagram/';
 const methodGet = 'GET';
 const methodPost = 'POST';
 // шаблон сообщения об ошибке загрузки данных
-const errorLoadDataTemplate = document.querySelector('#data-error').textContent;
+const errorLoadDataTemplate = document.querySelector('#data-error').content.querySelector('.data-error');
 const body = document.body;
 // время отображения сообщения об ошибке
 const REMOVE_ERROR_MESSAGE_TIMEOUT = 5000;
@@ -35,15 +35,13 @@ const getServerData = () => loader(serverUrlGetData, methodGet, null);
 const postServerData = (requestBody) => loader(serverUrlPost, methodPost, requestBody);
 
 const bootstrap = async () => {
-  let pictures = [];
   try {
-    pictures = await getServerData();
-    return pictures;
+    await getServerData();
   } catch (error) {
-    showErrorMessage(error);
+    showErrorMessage();
   }
 };
 
 bootstrap();
 
-export {getServerData, postServerData};
+export {getServerData, postServerData, showErrorMessage};
