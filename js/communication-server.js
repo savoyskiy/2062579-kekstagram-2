@@ -34,6 +34,7 @@ const getServerData = () => loader(serverUrlGetData, methodGet, null);
 // функция отправки данных на сервер
 const postServerData = (requestBody) => loader(serverUrlPost, methodPost, requestBody);
 
+// запускаю получение данных с сервера и обработку ошибки
 const bootstrap = async () => {
   try {
     await getServerData();
@@ -41,7 +42,6 @@ const bootstrap = async () => {
     showErrorMessage();
   }
 };
-
 bootstrap();
 
 export {getServerData, postServerData, showErrorMessage};
