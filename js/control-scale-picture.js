@@ -9,6 +9,8 @@ const imgUploadPreviewElement = document.querySelector('.img-upload__preview img
 // шаг изменения масштаба
 const SCALE_STEP = 0.25;
 // начальное значение масштаба
+const START_SCALE = 1;
+// масштаб
 let scale = 1;
 
 // уменьшаем масштаб
@@ -28,7 +30,8 @@ scaleControlBiggerElement.addEventListener('click', () => {
 
 // функция сброса масштаба на начальное значение
 const resetScale = () => {
-  imgUploadPreviewElement.style.transform = 'scale(1)';
+  scale = START_SCALE;
+  imgUploadPreviewElement.style.transform = `scale(${scale})`;
 };
 
 export {resetScale};
