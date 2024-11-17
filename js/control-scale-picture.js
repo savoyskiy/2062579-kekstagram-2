@@ -25,3 +25,10 @@ scaleControlBiggerElement.addEventListener('click', () => {
     scaleControlValueElement.value = `${scale * 100}%`;
   }
 });
+
+// функция сброса масштаба на начальное значение
+const resetScale = () => {
+  imgUploadPreviewElement.style.transform = 'scale(1)';
+};
+
+export {resetScale};

@@ -117,4 +117,10 @@ const onEffectChange = (evt) => {
   }
 };
 
-export {onEffectChange};
+// функция сброса эффектов на начальное значение
+const resetEffects = () => {
+  imgUploadPreviewElement.style.filter = 'none';
+  effectLevel.classList.add('hidden');
+};
+
+export {onEffectChange, resetEffects};

@@ -1,7 +1,8 @@
 import {isEscapeKey} from './utilities.js';
 import {isHashtagsValid, errorHashtagMessage} from './validation-hashtags.js';
 import {validateCommentLength, errorCommentMessage} from './validation-comments.js';
-import {onEffectChange} from './control-slider-effects.js';
+import {onEffectChange, resetEffects} from './control-slider-effects.js';
+import {resetScale} from './control-scale-picture.js';
 import {postServerData} from './communication-server.js';
 import {appendNotification} from './upload-notification.js';
 
@@ -21,6 +22,7 @@ const textCommentElement = pictureUploadFormElement.querySelector('.text__descri
 const effectListElement = pictureUploadFormElement.querySelector('.effects__list');
 // кнопка отправки формы
 const pictureUploadFormButton = pictureUploadFormElement.querySelector('.img-upload__submit');
+
 // шаблон сообщения об успешной отправке фото
 const templateSuccessElement = document.querySelector('#success').content;
 // шаблон сообщения об ошибке при отправке фото
@@ -85,7 +87,7 @@ const openPictureUploadForm = () => {
   document.addEventListener('keydown', onEscapeKeyDown);
 };
 
-//
+// функция отправки формы
 const sendFormData = async (formElement) => {
   if(pristine.validate()) { // проверка на прохождение валидации
     inputHashtagsElement.value = inputHashtagsElement.value.trim().replaceAll(/\s+/g, ' '); // отсекаю пробелы по краям и заменяю все варианты пробелов на один обычный
@@ -97,6 +99,9 @@ const sendFormData = async (formElement) => {
       await postServerData(FormDatas);
       // открываю окно с сообщением об успешной загрузке
       appendNotification(templateSuccessElement);
+      // сбрасываю значения полей формы
+      resetEffects();
+      resetScale();
       // закрываю форму загрузки фото
       closePictureUploadForm();
     } catch {
