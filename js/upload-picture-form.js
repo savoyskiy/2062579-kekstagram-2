@@ -40,7 +40,6 @@ const enableFormButton = () => {
   pictureUploadFormButton.textContent = basicFormButtonText;
 };
 
-
 // подключаю и настраиваю Pristine
 const pristine = new Pristine(pictureUploadFormElement, {
   classTo: 'img-upload__form',
@@ -92,13 +91,19 @@ const sendFormData = async (formElement) => {
     inputHashtagsElement.value = inputHashtagsElement.value.trim().replaceAll(/\s+/g, ' '); // отсекаю пробелы по краям и заменяю все варианты пробелов на один обычный
     // собираю данные из формы
     const FormDatas = new FormData(formElement);
+    // меняю состояние кнопки отправки формы на период загрузки
     disableFormButton();
     try {
       await postServerData(FormDatas);
-      appendNotification(templateSuccessElement, () => closePictureUploadForm());
+      // открываю окно с сообщением об успешной загрузке
+      appendNotification(templateSuccessElement);
+      // закрываю форму загрузки фото
+      closePictureUploadForm();
     } catch {
+      // открываю окно с сообщением об ошибке загрузки
       appendNotification(templateErrorElement);
     } finally {
+      // возвращаю начальное состояние кнопки отправки формы
       enableFormButton();
     }
   }
