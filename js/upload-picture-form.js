@@ -28,18 +28,18 @@ const templateSuccessElement = document.querySelector('#success').content;
 // шаблон сообщения об ошибке при отправке фото
 const templateErrorElement = document.querySelector('#error').content;
 // базовый текст на кнопке
-const basicFormButtonText = 'Опубликовать';
+const BASIC_TEXT = 'Опубликовать';
 // текст на кнопке при отправке
-const sendingFormButtonText = 'Ожидание...';
+const PROCESS_TEXT = 'Отправка...';
 // функция блокировки кнопки отправки формы
 const disableFormButton = () => {
   pictureUploadFormButton.disabled = true;
-  pictureUploadFormButton.textContent = sendingFormButtonText;
+  pictureUploadFormButton.textContent = PROCESS_TEXT;
 };
 // функция разблокировки кнопки отправки формы
 const enableFormButton = () => {
   pictureUploadFormButton.disabled = false;
-  pictureUploadFormButton.textContent = basicFormButtonText;
+  pictureUploadFormButton.textContent = BASIC_TEXT;
 };
 
 // подключаю и настраиваю Pristine
