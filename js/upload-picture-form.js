@@ -2,6 +2,7 @@ import {isEscapeKey} from './utilities.js';
 import {isHashtagsValid, errorHashtagMessage} from './validation-hashtags.js';
 import {validateCommentLength, errorCommentMessage} from './validation-comments.js';
 import {onEffectChange} from './control-slider-effects.js';
+import {postServerData} from './communication-server.js';
 
 // форма загрузки изображения
 const pictureUploadFormElement = document.querySelector('.img-upload__form');
@@ -63,14 +64,26 @@ const openPictureUploadForm = () => {
   document.addEventListener('keydown', onEscapeKeyDown);
 };
 
+//
+const sendFormData = async (formElement) => {
+  if(pristine.validate()) { // проверка на прохождение валидации
+    inputHashtagsElement.value = inputHashtagsElement.value.trim().replaceAll(/\s+/g, ' '); // отсекаю пробелы по краям и заменяю все варианты пробелов на один обычный
+    // собираю данные из формы
+    const FormDatas = new FormData(formElement);
+    await postServerData(FormDatas);
+    pictureUploadFormElement.submit();
+  }
+};
+
 // отправка формы
 const submitPictureUploadForm = (evt) => {
   evt.preventDefault();
   // проверка на прохождение валидации
-  if(pristine.validate()) {
-    inputHashtagsElement.value = inputHashtagsElement.value.trim().replaceAll(/\s+/g, ' '); // отсекаю пробелы по краям и заменяю все варианты пробелов на один обычный
-    pictureUploadFormElement.submit();
-  }
+  // if(pristine.validate()) {
+  //   inputHashtagsElement.value = inputHashtagsElement.value.trim().replaceAll(/\s+/g, ' '); // отсекаю пробелы по краям и заменяю все варианты пробелов на один обычный
+  //   pictureUploadFormElement.submit();
+  // }
+  sendFormData(evt.target);
 };
 
 // валидация хэштегов в Pristine

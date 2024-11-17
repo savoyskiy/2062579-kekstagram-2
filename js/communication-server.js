@@ -1,7 +1,7 @@
 // адрес для получения данных с сервера
 const serverUrlGetData = 'https://31.javascript.htmlacademy.pro/kekstagram/data';
 // адрес для отправки данных на сервер
-const serverUrlPost = 'https://31.javascript.htmlacademy.pro/kekstagram/';
+const serverUrlPost = 'https://31.javascript.htmlacademy.pro/kekstagram';
 // методы
 const methodGet = 'GET';
 const methodPost = 'POST';
