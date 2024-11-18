@@ -1,7 +1,10 @@
 import {isEscapeKey} from './utilities.js';
 import {isHashtagsValid, errorHashtagMessage} from './validation-hashtags.js';
 import {validateCommentLength, errorCommentMessage} from './validation-comments.js';
-import {onEffectChange} from './control-slider-effects.js';
+import {onEffectChange, resetEffects} from './control-slider-effects.js';
+import {resetScale} from './control-scale-picture.js';
+import {postServerData} from './communication-server.js';
+import {appendNotification} from './upload-notification.js';
 
 // форма загрузки изображения
 const pictureUploadFormElement = document.querySelector('.img-upload__form');
@@ -17,6 +20,27 @@ const inputHashtagsElement = pictureUploadFormElement.querySelector('.text__hash
 const textCommentElement = pictureUploadFormElement.querySelector('.text__description');
 // список выбора эффектов
 const effectListElement = pictureUploadFormElement.querySelector('.effects__list');
+// кнопка отправки формы
+const pictureUploadFormButton = pictureUploadFormElement.querySelector('.img-upload__submit');
+
+// шаблон сообщения об успешной отправке фото
+const templateSuccessElement = document.querySelector('#success').content;
+// шаблон сообщения об ошибке при отправке фото
+const templateErrorElement = document.querySelector('#error').content;
+// базовый текст на кнопке
+const BASIC_TEXT = 'Опубликовать';
+// текст на кнопке при отправке
+const PROCESS_TEXT = 'Отправка...';
+// функция блокировки кнопки отправки формы
+const disableFormButton = () => {
+  pictureUploadFormButton.disabled = true;
+  pictureUploadFormButton.textContent = PROCESS_TEXT;
+};
+// функция разблокировки кнопки отправки формы
+const enableFormButton = () => {
+  pictureUploadFormButton.disabled = false;
+  pictureUploadFormButton.textContent = BASIC_TEXT;
+};
 
 // подключаю и настраиваю Pristine
 const pristine = new Pristine(pictureUploadFormElement, {
@@ -63,14 +87,37 @@ const openPictureUploadForm = () => {
   document.addEventListener('keydown', onEscapeKeyDown);
 };
 
+// функция отправки формы
+const sendFormData = async (formElement) => {
+  if(pristine.validate()) { // проверка на прохождение валидации
+    inputHashtagsElement.value = inputHashtagsElement.value.trim().replaceAll(/\s+/g, ' '); // отсекаю пробелы по краям и заменяю все варианты пробелов на один обычный
+    // собираю данные из формы
+    const FormDatas = new FormData(formElement);
+    // меняю состояние кнопки отправки формы на период загрузки
+    disableFormButton();
+    try {
+      await postServerData(FormDatas);
+      // открываю окно с сообщением об успешной загрузке
+      appendNotification(templateSuccessElement);
+      // сбрасываю значения полей формы
+      resetEffects();
+      resetScale();
+      // закрываю форму загрузки фото
+      closePictureUploadForm();
+    } catch {
+      // открываю окно с сообщением об ошибке загрузки
+      appendNotification(templateErrorElement);
+    } finally {
+      // возвращаю начальное состояние кнопки отправки формы
+      enableFormButton();
+    }
+  }
+};
+
 // отправка формы
 const submitPictureUploadForm = (evt) => {
   evt.preventDefault();
-  // проверка на прохождение валидации
-  if(pristine.validate()) {
-    inputHashtagsElement.value = inputHashtagsElement.value.trim().replaceAll(/\s+/g, ' '); // отсекаю пробелы по краям и заменяю все варианты пробелов на один обычный
-    pictureUploadFormElement.submit();
-  }
+  sendFormData(evt.target);
 };
 
 // валидация хэштегов в Pristine
@@ -86,5 +133,5 @@ pictureUploadFileElement.addEventListener('change', openPictureUploadForm);
 pictureUploadFormElement.addEventListener('submit', submitPictureUploadForm);
 
 // подключаю прослушиватель на изменение эффектов
-effectListElement.addEventListener('input', onEffectChange);
+effectListElement.addEventListener('change', onEffectChange);
 

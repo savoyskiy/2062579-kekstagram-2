@@ -1,4 +1,4 @@
-import {createDescriptionsArray} from './create-data.js';
+import {getServerData} from './communication-server';
 
 // нахожу контейнер для изображений
 const picturesListElement = document.querySelector('.pictures');
@@ -6,8 +6,8 @@ const picturesListElement = document.querySelector('.pictures');
 // нахожу шаблон
 const pictureTemplateElement = document.querySelector('#picture').content.querySelector('.picture');
 
-// подключаю импортированную функцию
-const picturesDescriptionsArray = createDescriptionsArray();
+// подключаю импортированную функцию, которая забирает данные с сервера
+const picturesDescriptionsArray = await getServerData();
 
 // создаю фрагмент, через который буду подключать массив с изображениями
 const picturesArrayFragment = document.createDocumentFragment();

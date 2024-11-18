@@ -2,7 +2,7 @@ import {picturesListElement, picturesDescriptionsArray} from './create-pictures.
 import {createShowingComments, deleteShowingComments} from './create-comments.js';
 import {isEscapeKey} from './utilities.js';
 
-// элемент с большой картинкой в ДОМ ++
+// элемент с большой картинкой в ДОМ
 const bigPictureElement = document.querySelector('.big-picture');
 
 // закрывающий крестик на большой картинке
