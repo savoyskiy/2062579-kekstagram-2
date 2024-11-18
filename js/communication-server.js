@@ -1,10 +1,12 @@
 // адрес для получения данных с сервера
-const serverUrlGetData = 'https://31.javascript.htmlacademy.pro/kekstagram/data';
+const SERVER_URL_DATA = 'https://31.javascript.htmlacademy.pro/kekstagram/data';
 // адрес для отправки данных на сервер
-const serverUrlPost = 'https://31.javascript.htmlacademy.pro/kekstagram';
+const BASE_URL = 'https://31.javascript.htmlacademy.pro/kekstagram';
 // методы
-const methodGet = 'GET';
-const methodPost = 'POST';
+const methods = {
+  GET: 'GET',
+  POST: 'POST',
+};
 // шаблон сообщения об ошибке загрузки данных
 const errorLoadDataTemplate = document.querySelector('#data-error').content.querySelector('.data-error');
 const pageBody = document.body;
@@ -30,9 +32,9 @@ const loader = async (address, method, body) => {
   return response.ok ? await response.json() : Promise.reject();
 };
 // функция получения данных с сервера
-const getServerData = () => loader(serverUrlGetData, methodGet, null);
+const getServerData = () => loader(SERVER_URL_DATA, methods.GET, null);
 // функция отправки данных на сервер
-const postServerData = (body) => loader(serverUrlPost, methodPost, body);
+const postServerData = (body) => loader(BASE_URL, methods.POST, body);
 
 // запускаю получение данных с сервера и обработку ошибки
 const bootstrap = async () => {
