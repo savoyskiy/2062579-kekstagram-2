@@ -1,3 +1,6 @@
+// период перерисовки в мс
+const RERENDER_DELAY = 500;
+
 /*фунция получения псевдослучайного числа*/
 const getRandomNumber = (a, b) => {
   const min = Math.min(a, b);
@@ -9,4 +12,13 @@ const getRandomNumber = (a, b) => {
 // функция проверяющая нажата ли клавиша Escape
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {getRandomNumber, isEscapeKey};
+// функция устранения "дребезга"
+const debounce = (callBack, timeOutDelay = RERENDER_DELAY) => {
+  let timeOutId;
+  return (...rest) => {
+    clearTimeout(timeOutId);
+    timeOutId = setTimeout(() => callBack.apply(this, rest), timeOutDelay);
+  };
+};
+
+export {getRandomNumber, isEscapeKey, debounce};
