@@ -1,20 +1,18 @@
-// import {getServerData} from './communication-server';
-
 // нахожу контейнер для изображений
 const picturesListElement = document.querySelector('.pictures');
 
 // нахожу шаблон
 const pictureTemplateElement = document.querySelector('#picture').content.querySelector('.picture');
 
-// подключаю импортированную функцию, которая забирает данные с сервера
-// const picturesDescriptionsArray = await getServerData();
-
 // создаю фрагмент, через который буду подключать массив с изображениями
 const picturesArrayFragment = document.createDocumentFragment();
 
 // создаю фрагмент с изображениями
-const createPicturesArray = (picturesDescriptionsArray) => {
-  picturesDescriptionsArray.forEach(({id, url, description, likes, comments}) => {
+const createPicturesArray = (picturesArray) => {
+  // очищаю контейнер с изображениями
+  picturesListElement.querySelectorAll('a.picture').forEach((item) => item.remove());
+  // заполняю фрагмент с изображениями
+  picturesArray.forEach(({id, url, description, likes, comments}) => {
   // клонирую шаблон и помещаю в контейнер
     const picture = pictureTemplateElement.cloneNode(true);
     // прописываю данные изображений
@@ -30,6 +28,5 @@ const createPicturesArray = (picturesDescriptionsArray) => {
   // загружаю фрагмент в контейнер для изображений
   picturesListElement.appendChild(picturesArrayFragment);
 };
-// экспортирую результат
-// export {picturesDescriptionsArray};
+// экспортирую результат;
 export {createPicturesArray};

@@ -17,7 +17,7 @@ const debounce = (callBack, timeOutDelay = RERENDER_DELAY) => {
   let timeOutId;
   return (...rest) => {
     clearTimeout(timeOutId);
-    timeOutId = setTimeout(() => callBack.apply(this, rest), timeOutDelay);
+    timeOutId = setTimeout(() => callBack(...rest), timeOutDelay);
   };
 };
 
