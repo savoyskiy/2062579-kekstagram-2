@@ -1,27 +1,37 @@
 import { debounce } from './utilities';
 import {createPicturesArray} from './create-pictures';
 
-// переменная для текущего фильтра
-let currentFilter = 'filter-default';
-let photos = [];
-// нахожу элемент с фильтрами
-const filtersElement = document.querySelector('.img-filters');
+// набор фильтров
+const FILTERS = {
+  default: 'filter-default',
+  random: 'filter-random',
+  discussed: 'filter-discussed',
+};
 // класс для активного фильтра
 const ACTIVE_FILTER_CLASS = 'img-filters__button--active';
-
+// количество фото, отбираемых в случайном фильтре
+const RANDOM_PHOTOS_COUNT = 12;
+// нахожу элемент с фильтрами
+const filtersElement = document.querySelector('.img-filters');
+// переменная для текущего фильтра
+let currentFilter = FILTERS.default;
+let photos = [];
+// "устранитель дребезга"
 const debounceRender = debounce(createPicturesArray);
 
 // функция применения фильтров
 const appllyFilter = () => {
   let filteredPhotos = [];
-
-  if(currentFilter === 'filter-default') {
+  // фильтр по умолчанию
+  if(currentFilter === FILTERS.default) {
     filteredPhotos = photos;
   }
-  if(currentFilter === 'filter-random') {
-    filteredPhotos = photos.toSorted(() => 0.5 - Math.random()).slice(0, 10);
+  // фильтр случайных фото
+  if(currentFilter === FILTERS.random) {
+    filteredPhotos = photos.toSorted(() => 0.5 - Math.random()).slice(0, RANDOM_PHOTOS_COUNT);
   }
-  if(currentFilter === 'filter-discussed') {
+  // фильтр обсуждаемых фото
+  if(currentFilter === FILTERS.discussed) {
     filteredPhotos = photos.toSorted((a,b) => b.comments.length - a.comments.length);
   }
   debounceRender(filteredPhotos);

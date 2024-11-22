@@ -6,7 +6,7 @@ import {getServerData, showErrorMessage} from './communication-server.js';
 import {configFilter} from './filters.js';
 import {createPicturesArray} from './create-pictures.js';
 
-// функция получение данных с сервера и обработки ошибки
+// функция получения данных с сервера, запуска и обработки ошибки
 const bootstrap = async () => {
   try {
     const photosArray = await getServerData();
