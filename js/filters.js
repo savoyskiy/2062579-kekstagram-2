@@ -1,9 +1,12 @@
 import { debounce } from './utilities';
+import {createPicturesArray} from './create-pictures';
 
 let currentFilter = 'filter-default';
 let photos = [];
 const filtersElement = document.querySelector('.img-filters');
 const ACTIVE_FILTER_CLASS = 'img-filters__button--active';
+
+const debounceRender = debounce(createPicturesArray);
 
 const appllyFilter = () => {
   let filteredPhotos = [];
@@ -17,6 +20,7 @@ const appllyFilter = () => {
   if(currentFilter === 'filter-discussed') {
     filteredPhotos = photos.toSorted((a,b) => b.comments.length - a.comments.length);
   }
+  debounceRender(filteredPhotos);
 };
 
 const onfilterChange = (evt) => {
