@@ -1,4 +1,4 @@
-import { debounce } from "./utilities";
+import { debounce } from './utilities';
 
 let currentFilter = 'filter-default';
 let photos = [];
