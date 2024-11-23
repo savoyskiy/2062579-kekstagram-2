@@ -27,7 +27,7 @@ const pictureUploadPreview = pictureUploadFormElement.querySelector('.img-upload
 // элементы превью с эффектами
 const pictureEffectsPreview = pictureUploadFormElement.querySelectorAll('.effects__preview');
 // массив допустимых типов файлов для загрузки
-const FILE_TYPES = ['.jpg', '.jpeg', '.png', '.gif'];
+const FILE_TYPES = ['image/png', 'image/gif', 'image/jpeg'];
 // шаблон сообщения об успешной отправке фото
 const templateSuccessElement = document.querySelector('#success').content;
 // шаблон сообщения об ошибке при отправке фото
@@ -99,11 +99,11 @@ const openPictureUploadForm = () => {
 const onPhotoUpload = () => {
   // забираю из инпута загруженный файл
   const file = pictureUploadFileElement.files[0];
-  // привожу имя к нижнему регистру
-  const fileName = file.name.toLowerCase();
-  // задаю проверку по расширению файла
-  const matches = FILE_TYPES.some((item) => fileName.endsWith(item));
-  if (matches) { // проверяю
+  // определяю тип файла
+  const fileType = file.type;
+  // задаю проверку по типу файла
+  const matchesTypeFile = FILE_TYPES.includes(fileType);
+  if (matchesTypeFile) { // проверяю
     // создаю url-адрес для загруженного файла
     const url = URL.createObjectURL(file);
     // подставляю его в превьюшку
