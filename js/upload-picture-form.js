@@ -64,6 +64,7 @@ const closePictureUploadForm = () => {
   pictureUploadFormElement.reset();
   // сбрасываю значения полей формы
   resetEffects();
+  resetScale();
   // удаляю прослушиватель на клавише Esc
   // eslint-disable-next-line no-use-before-define
   document.removeEventListener('keydown', onEscapeKeyDown);
