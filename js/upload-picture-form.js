@@ -22,7 +22,12 @@ const textCommentElement = pictureUploadFormElement.querySelector('.text__descri
 const effectListElement = pictureUploadFormElement.querySelector('.effects__list');
 // кнопка отправки формы
 const pictureUploadFormButton = pictureUploadFormElement.querySelector('.img-upload__submit');
-
+// элемент с превью загружаемого фото
+const pictureUploadPreview = pictureUploadFormElement.querySelector('.img-upload__preview > img');
+// элементы превью с эффектами
+const pictureEffectsPreview = pictureUploadFormElement.querySelectorAll('.effects__preview');
+// массив допустимых типов файлов для загрузки
+const FILE_TYPES = ['.jpg', '.jpeg', '.png', '.gif'];
 // шаблон сообщения об успешной отправке фото
 const templateSuccessElement = document.querySelector('#success').content;
 // шаблон сообщения об ошибке при отправке фото
@@ -87,6 +92,22 @@ const openPictureUploadForm = () => {
   document.addEventListener('keydown', onEscapeKeyDown);
 };
 
+// функция подстановки изображения в превью
+const onPhotoUpload = () => {
+  const file = pictureUploadFileElement.files[0];
+  const fileName = file.name.toLowerCase();
+  const matches = FILE_TYPES.some((item) => fileName.endsWith(item));
+  if (matches) {
+    const url = URL.createObjectURL(file);
+    pictureUploadPreview.src = url;
+    pictureEffectsPreview.forEach((item) => {
+      item.style.backgroundImage = `url(${url})`;
+    });
+  } else {
+    closePictureUploadForm();
+  }
+};
+
 // функция отправки формы
 const sendFormData = async (formElement) => {
   if(pristine.validate()) { // проверка на прохождение валидации
@@ -128,6 +149,7 @@ pristine.addValidator(textCommentElement, validateCommentLength, errorCommentMes
 
 // вешаю прослушиватель на инпут загрузки изображения
 pictureUploadFileElement.addEventListener('change', openPictureUploadForm);
+pictureUploadFileElement.addEventListener('change', onPhotoUpload);
 
 // добавляю прослушиватель на форму для отправки
 pictureUploadFormElement.addEventListener('submit', submitPictureUploadForm);
