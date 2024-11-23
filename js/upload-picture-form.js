@@ -94,16 +94,23 @@ const openPictureUploadForm = () => {
 
 // функция подстановки изображения в превью
 const onPhotoUpload = () => {
+  // забираю из инпута загруженный файл
   const file = pictureUploadFileElement.files[0];
+  // привожу имя к нижнему регистру
   const fileName = file.name.toLowerCase();
+  // задаю проверку по расширению файла
   const matches = FILE_TYPES.some((item) => fileName.endsWith(item));
-  if (matches) {
+  if (matches) { // проверяю
+    // создаю url-адрес для загруженного файла
     const url = URL.createObjectURL(file);
+    // подставляю его в превьюшку
     pictureUploadPreview.src = url;
+    // подставляю его же в превьюшки эффектов
     pictureEffectsPreview.forEach((item) => {
       item.style.backgroundImage = `url(${url})`;
     });
   } else {
+    // если неправильный файл - закрываю окно
     closePictureUploadForm();
   }
 };
@@ -147,7 +154,7 @@ pristine.addValidator(inputHashtagsElement, isHashtagsValid, errorHashtagMessage
 // валидация комментария в Pristine
 pristine.addValidator(textCommentElement, validateCommentLength, errorCommentMessage);
 
-// вешаю прослушиватель на инпут загрузки изображения
+// вешаю прослушиватели на инпут загрузки изображения
 pictureUploadFileElement.addEventListener('change', openPictureUploadForm);
 pictureUploadFileElement.addEventListener('change', onPhotoUpload);
 
