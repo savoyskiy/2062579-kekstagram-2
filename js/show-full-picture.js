@@ -1,10 +1,8 @@
-import {picturesListElement, picturesDescriptionsArray} from './create-pictures.js';
 import {createShowingComments, deleteShowingComments} from './create-comments.js';
 import {isEscapeKey} from './utilities.js';
 
 // элемент с большой картинкой в ДОМ
 const bigPictureElement = document.querySelector('.big-picture');
-
 // закрывающий крестик на большой картинке
 const bigPictureCloseElement = bigPictureElement.querySelector('.big-picture__cancel');
 // элемент с изображением большой картинки
@@ -13,6 +11,8 @@ const bigPictureImageElement = bigPictureElement.querySelector('.big-picture__im
 const bigPictureLikesCountElement = bigPictureElement.querySelector('.likes-count');
 // элемент с описанием картинки
 const bigPictureCaptionElement = bigPictureElement.querySelector('.social__caption');
+// контейнер для изображений
+const picturesListElement = document.querySelector('.pictures');
 // страница
 const body = document.querySelector('BODY');
 
@@ -37,9 +37,9 @@ const onEscapeKeyDown = (evt) => {
 };
 
 // функция показа полноразмерной картинки
-const showBigPicture = (pictureId) => {
+const showBigPicture = (picturesArray, pictureId) => {
   // нахожу нужную картинку в блоке с данными
-  const currentPicture = picturesDescriptionsArray.find((picture) => picture.id === Number(pictureId));
+  const currentPicture = picturesArray.find((picture) => picture.id === Number(pictureId));
   // вставляю саму картинку
   bigPictureImageElement.src = currentPicture.url;
   // вставляю количество лайков
@@ -56,17 +56,20 @@ const showBigPicture = (pictureId) => {
   document.addEventListener('keydown', onEscapeKeyDown);
 };
 
-// открываю большую картинку кликом по миниатюре
-picturesListElement.addEventListener('click', (evt) => {
-  const currentPicture = evt.target.closest('.picture');
+const renderFullPicture = (picturesArray) => {
+  // открываю большую картинку кликом по миниатюре
+  picturesListElement.addEventListener('click', (evt) => {
+    const currentPicture = evt.target.closest('.picture');
 
-  if (currentPicture) {
-    // отменяю переход по ссылке при клике
-    evt.preventDefault();
-    showBigPicture(currentPicture.dataset.pictureId);
-  }
-});
+    if (currentPicture) {
+      // отменяю переход по ссылке при клике
+      evt.preventDefault();
+      showBigPicture(picturesArray, currentPicture.dataset.pictureId);
+    }
+  });
 
-// закрываю большую картинку кликом по крестику
-bigPictureCloseElement.addEventListener('click', closeBigPicture);
+  // закрываю большую картинку кликом по крестику
+  bigPictureCloseElement.addEventListener('click', closeBigPicture);
+};
 
+export {renderFullPicture};
