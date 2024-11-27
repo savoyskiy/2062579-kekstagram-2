@@ -1,5 +1,5 @@
 // период перерисовки в мс
-const RERENDER_DELAY = 600;
+const RERENDER_DELAY = 500;
 
 /*фунция получения псевдослучайного числа*/
 const getRandomNumber = (a, b) => {
