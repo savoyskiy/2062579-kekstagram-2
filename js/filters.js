@@ -10,7 +10,7 @@ const FILTERS = {
 // класс для активного фильтра
 const ACTIVE_FILTER_CLASS = 'img-filters__button--active';
 // количество фото, отбираемых в случайном фильтре
-const RANDOM_PHOTOS_COUNT = 12;
+const RANDOM_PHOTOS_COUNT = 10;
 // нахожу элемент с фильтрами
 const filtersElement = document.querySelector('.img-filters');
 // переменная для текущего фильтра
