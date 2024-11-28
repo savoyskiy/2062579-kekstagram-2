@@ -1,11 +1,17 @@
 import {isEscapeKey} from './utilities.js';
-import {isHashtagsValid, errorHashtagMessage} from './validation-hashtags.js';
-import {validateCommentLength, errorCommentMessage} from './validation-comments.js';
+import {isHashtagsValid, setErrorHashtagMessage} from './validation-hashtags.js';
+import {validateCommentLength, setErrorCommentMessage} from './validation-comments.js';
 import {onEffectChange, resetEffects} from './control-slider-effects.js';
 import {resetScale} from './control-scale-picture.js';
 import {postServerData} from './communication-server.js';
 import {appendNotification} from './upload-notification.js';
 
+// базовый текст на кнопке
+const BASIC_TEXT = 'Опубликовать';
+// текст на кнопке при отправке
+const PROCESS_TEXT = 'Отправка...';
+// массив допустимых типов файлов для загрузки
+const FILE_TYPES = ['image/png', 'image/gif', 'image/jpeg'];
 // форма загрузки изображения
 const pictureUploadFormElement = document.querySelector('.img-upload__form');
 // инпут загрузки изображения
@@ -26,16 +32,10 @@ const pictureUploadFormButton = pictureUploadFormElement.querySelector('.img-upl
 const pictureUploadPreview = pictureUploadFormElement.querySelector('.img-upload__preview > img');
 // элементы превью с эффектами
 const pictureEffectsPreview = pictureUploadFormElement.querySelectorAll('.effects__preview');
-// массив допустимых типов файлов для загрузки
-const FILE_TYPES = ['image/png', 'image/gif', 'image/jpeg'];
 // шаблон сообщения об успешной отправке фото
 const templateSuccessElement = document.querySelector('#success').content;
 // шаблон сообщения об ошибке при отправке фото
 const templateErrorElement = document.querySelector('#error').content;
-// базовый текст на кнопке
-const BASIC_TEXT = 'Опубликовать';
-// текст на кнопке при отправке
-const PROCESS_TEXT = 'Отправка...';
 // функция блокировки кнопки отправки формы
 const disableFormButton = () => {
   pictureUploadFormButton.disabled = true;
@@ -152,10 +152,10 @@ const submitPictureUploadForm = (evt) => {
 };
 
 // валидация хэштегов в Pristine
-pristine.addValidator(inputHashtagsElement, isHashtagsValid, errorHashtagMessage);
+pristine.addValidator(inputHashtagsElement, isHashtagsValid, setErrorHashtagMessage);
 
 // валидация комментария в Pristine
-pristine.addValidator(textCommentElement, validateCommentLength, errorCommentMessage);
+pristine.addValidator(textCommentElement, validateCommentLength, setErrorCommentMessage);
 
 // вешаю прослушиватели на инпут загрузки изображения
 pictureUploadFileElement.addEventListener('change', openPictureUploadForm);
