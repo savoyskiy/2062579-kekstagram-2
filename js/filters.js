@@ -37,7 +37,7 @@ const appllyFilter = () => {
   debounceRender(filteredPhotos);
 };
 
-const onfilterChange = (evt) => {
+const onFiltersClick = (evt) => {
   // фильтр, который выбирается кликом
   const targetFilter = evt.target;
   // активный фильтр
@@ -61,7 +61,7 @@ const makeFilter = (photosData) => {
   // отображаю блок фильтров на странице
   filtersElement.classList.remove('img-filters--inactive');
   // подписываю блок на клики
-  filtersElement.addEventListener('click', onfilterChange);
+  filtersElement.addEventListener('click', onFiltersClick);
   // записываю в массив photos полученные с сервера данные
   photos = photosData;
 };

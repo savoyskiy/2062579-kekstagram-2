@@ -83,6 +83,8 @@ const onEscapeKeyDown = (evt) => {
   }
 };
 
+const onPictureUploadCancelClick = () => closePictureUploadForm();
+
 // открытие формы
 const openPictureUploadForm = () => {
   // вешаю класс modal-open на страницу
@@ -90,10 +92,12 @@ const openPictureUploadForm = () => {
   // показываю элементы настройки изображения
   pictureUploadOverlayElement.classList.remove('hidden');
   // вешаю прослушиватель на кнопку закрытия формы
-  pictureUploadCancelElement.addEventListener('click', closePictureUploadForm);
+  pictureUploadCancelElement.addEventListener('click', onPictureUploadCancelClick);
   // вешаю на страницу прослушиваетль на Esc
   document.addEventListener('keydown', onEscapeKeyDown);
 };
+
+const onPictureUploadFileChange = () => openPictureUploadForm();
 
 // функция подстановки изображения в превью
 const onPhotoUpload = () => {
@@ -117,6 +121,8 @@ const onPhotoUpload = () => {
     closePictureUploadForm();
   }
 };
+
+const onPhotoUploadFileChange = () => onPhotoUpload();
 
 // функция отправки формы
 const sendFormData = async (formElement) => {
@@ -146,7 +152,7 @@ const sendFormData = async (formElement) => {
 };
 
 // отправка формы
-const submitPictureUploadForm = (evt) => {
+const onPictureUploadFormSubmit = (evt) => {
   evt.preventDefault();
   sendFormData(evt.target);
 };
@@ -158,11 +164,11 @@ pristine.addValidator(inputHashtagsElement, isHashtagsValid, setErrorHashtagMess
 pristine.addValidator(textCommentElement, validateCommentLength, setErrorCommentMessage);
 
 // вешаю прослушиватели на инпут загрузки изображения
-pictureUploadFileElement.addEventListener('change', openPictureUploadForm);
-pictureUploadFileElement.addEventListener('change', onPhotoUpload);
+pictureUploadFileElement.addEventListener('change', onPictureUploadFileChange);
+pictureUploadFileElement.addEventListener('change', onPhotoUploadFileChange);
 
 // добавляю прослушиватель на форму для отправки
-pictureUploadFormElement.addEventListener('submit', submitPictureUploadForm);
+pictureUploadFormElement.addEventListener('submit', onPictureUploadFormSubmit);
 
 // подключаю прослушиватель на изменение эффектов
 effectListElement.addEventListener('change', onEffectChange);
