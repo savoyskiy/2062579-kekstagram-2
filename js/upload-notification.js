@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 import {isEscapeKey} from './utilities.js';
 
 const pageBody = document.body;
@@ -10,6 +9,7 @@ const onEscapeKeyDown = (evt) => {
   if (isEscapeKey(evt)) {
     existNotificationElement.remove();
     pageBody.removeEventListener('keydown', onEscapeKeyDown);
+    // eslint-disable-next-line no-use-before-define
     pageBody.removeEventListener('click', onPageClick);
   }
 };
