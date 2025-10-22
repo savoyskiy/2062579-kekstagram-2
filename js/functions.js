@@ -1,6 +1,6 @@
 /* функция определения длины строки, если длина строки <= заданного значения, возвращает true, иначе false */
 let stringLimit = 10; // значение для сравнения
-let testString = 'Константин'; // проверяемая строка
+let testString = 'Самолёт'; // проверяемая строка
 
 function countStringLength (string, limit) {
   return string.length <= limit;
@@ -27,15 +27,15 @@ console.log('Работа функции проверки строки на па
 
 
 /* функция, извлекающая числа из строки, если цифры в строке есть - возвращает челое положительное число, если нет - возвращает NaN */
-let maybeIntegerString = 'год 2025 мечяц 10 число 22'; // заданная строка
+let maybeIntegerString = 'год 2025 месяц 10 число 22'; // заданная строка
 
 function getInteger (string) {
   let preparedString = string.toString(); // если сразу задано число, переводим его в строку
   let integer = '';
 
   for (let i = 0;i < preparedString.length;i++) {
-    let iCharacter = parseInt(preparedString[i]); // записываем i-символ заданной строки в переменную для проверки: если символ не число, записывается NaN
-    if (!isNaN(iCharacter)) integer += preparedString[i]; // если i-символ число, вставляем его в новую строку
+    let iCharacter = parseInt(preparedString[i], 10); // записываем i-символ заданной строки в переменную для проверки: если символ не цифра, записывается NaN
+    if (!isNaN(iCharacter)) integer += preparedString[i]; // если i-символ цифра, вставляем его в новую строку
   }
 
   return parseInt(integer, 10); // переводим получившуюся строку в число или NaN, если она пуста
