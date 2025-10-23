@@ -1,19 +1,17 @@
 /* функция определения длины строки, если длина строки <= заданного значения, возвращает true, иначе false */
-let stringLimit = 10; // значение для сравнения
-let testString = 'Самолёт'; // проверяемая строка
+const stringLimit = 10; // значение для сравнения
+const testString = 'Самолёт'; // проверяемая строка
 
-function countStringLength (string, limit) {
-  return string.length <= limit;
-}
+const countStringLength = (string, limit) => string.length <= limit;
 
 console.log('Работа функции определения длины строки. Ожидаю true, получаю ' + countStringLength(testString, stringLimit)); // проверка работы
 
 
 /* функция проверки строки на палиндром, если строка палиндром, возвращает true, иначе false */
-let possiblePalindrome = 'тОпот '; // проверяемая строка
+const possiblePalindrome = 'тОпот '; // проверяемая строка
 
-function isPalindrome (string) {
-  let preparedString = string.toLowerCase().replaceAll(' ', ''); // приводим к одному регистру и убираем пробелы
+const isPalindrome = (string) => {
+  const preparedString = string.toLowerCase().replaceAll(' ', ''); // приводим к одному регистру и убираем пробелы
   let reversedString = '';
 
   for (let i = preparedString.length - 1; i >= 0; i--) {
@@ -27,10 +25,10 @@ console.log('Работа функции проверки строки на па
 
 
 /* функция, извлекающая числа из строки, если цифры в строке есть - возвращает челое положительное число, если нет - возвращает NaN */
-let maybeIntegerString = 'год 2025 месяц 10 число 22'; // заданная строка
+const maybeIntegerString = 'год 2025 месяц 10 число 22'; // заданная строка
 
-function getInteger (string) {
-  let preparedString = string.toString(); // если сразу задано число, переводим его в строку
+const getInteger = (string) => {
+  const preparedString = string.toString(); // если сразу задано число, переводим его в строку
   let integer = '';
 
   for (let i = 0;i < preparedString.length;i++) {
