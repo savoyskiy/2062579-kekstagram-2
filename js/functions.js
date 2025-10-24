@@ -4,7 +4,7 @@ const testString = 'Самолёт'; // проверяемая строка
 
 const countStringLength = (string = 'Робот', limit = 5) => string.length <= limit;
 
-console.log('Работа функции определения длины строки. Ожидаю true, получаю ' + countStringLength(testString, stringLimit)); // проверка работы
+countStringLength(testString, stringLimit);
 
 
 /* функция проверки строки на палиндром, если строка палиндром, возвращает true, иначе false */
@@ -19,9 +19,9 @@ const isPalindrome = (string = 'довод') => {
   }
 
   return preparedString === reversedString;
-}
+};
 
-console.log('Работа функции проверки строки на палиндром. Ожидаю true, получаю ' + isPalindrome(possiblePalindrome)); // проверка работы
+isPalindrome(possiblePalindrome);
 
 
 /* функция, извлекающая числа из строки, если цифры в строке есть - возвращает целое положительное число, если нет - возвращает NaN */
@@ -32,11 +32,13 @@ const getInteger = (string = '101') => {
   let integer = '';
 
   for (let i = 0;i < preparedString.length;i++) {
-    let iCharacter = parseInt(preparedString[i], 10); // записываем i-символ заданной строки в переменную для проверки: если символ не цифра, записывается NaN
-    if (!isNaN(iCharacter)) integer += preparedString[i]; // если i-символ цифра, вставляем его в новую строку
+    const iCharacter = parseInt(preparedString[i], 10); // записываем i-символ заданной строки в переменную для проверки: если символ не цифра, записывается NaN
+    if (!isNaN(iCharacter)) {
+      integer += preparedString[i];
+    } // если i-символ цифра, вставляем его в новую строку
   }
 
   return parseInt(integer, 10); // переводим получившуюся строку в число или NaN, если она пуста
-}
+};
 
-console.log('Работа функции извлечения числа. Ожидаю 20251022, получаю ' + getInteger(maybeIntegerString)); // проверка работы
+getInteger(maybeIntegerString);
