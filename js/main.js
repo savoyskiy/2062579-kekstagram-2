@@ -69,7 +69,7 @@ const LIKES_MAX = 200;
 const COMMENTS_MIN = 0;
 const COMMENTS_MAX = 30;
 const AVATAR_MIN = 1;
-const AVATAR_MAX = 1;
+const AVATAR_MAX = 6;
 const ID_FACTOR = 1000;
 
 /* функция получения случайного числа в диапазоне от А до В */
@@ -83,11 +83,9 @@ const getRandomNumber = (a, b) => {
 const getMessage = (messagesArray) => {
   const message1 = messagesArray[getRandomNumber(0, messagesArray.length - 1)];
   const message2 = messagesArray[getRandomNumber(0, messagesArray.length - 1)];
-  let message = '';
-  if (message1 === message2) {
-    message = message1;
-  } else {
-    message = `${message1} ${message2}`;
+  let message = message1;
+  if (message1 !== message2) {
+    message += ` ${message2}`;
   }
   return message;
 };
@@ -130,4 +128,4 @@ const getPhotosArray = (descriptions) => {
 };
 
 getPhotosArray(PHOTOS_DESCRIPTIONS);
-console.log(getPhotosArray(PHOTOS_DESCRIPTIONS)); // проверка
+// console.log(getPhotosArray(PHOTOS_DESCRIPTIONS)); // проверка
