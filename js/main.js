@@ -70,8 +70,11 @@ const COMMENTS_MIN = 0;
 const COMMENTS_MAX = 30;
 const AVATAR_MIN = 1;
 const AVATAR_MAX = 1;
+const MESSAGE_MIN = 1;
+const MESSAGE_MAX = 2;
+const ID_FACTOR = 1000;
 
-/* получение случайного числа в диапазоне от А до В */
+/* функция получения случайного числа в диапазоне от А до В */
 const getRandomNumber = (a, b) => {
   const min = Math.min(a, b);
   const max = Math.max(a, b);
@@ -82,18 +85,19 @@ const getRandomNumber = (a, b) => {
 const getMessage = (messagesArray) => {
   const message1 = messagesArray[getRandomNumber(0, messagesArray.length - 1)];
   let message2 = '';
-  if (getRandomNumber(1, 2) === 2) {
-    message2 = ` ${messagesArray[getRandomNumber(0, messagesArray.length - 1)]}`;
+  if (getRandomNumber(MESSAGE_MIN, MESSAGE_MAX) > 1) {
+    message2 = messagesArray[getRandomNumber(0, messagesArray.length - 1)];
     while (message2 === message1) {
       message2 = messagesArray[getRandomNumber(0, messagesArray.length - 1)];
     }
+    return `${message1 } ${ message2}`;
   }
-  return `${message1 }${ message2}`;
+  return message1;
 };
 
 /* функция генерации id комментария */
 const getIdNumber = (j, i) => {
-  const id = j * 1000 + i;
+  const id = j * ID_FACTOR + i;
   return id;
 };
 
