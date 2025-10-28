@@ -64,6 +64,13 @@ const NAMES = [
   'Яна'
 ];
 
+const LIKES_MIN = 15;
+const LIKES_MAX = 200;
+const COMMENTS_MIN = 0;
+const COMMENTS_MAX = 30;
+const AVATAR_MIN = 1;
+const AVATAR_MAX = 1;
+
 /* получение случайного числа в диапазоне от А до В */
 const getRandomNumber = (a, b) => {
   const min = Math.min(a, b);
@@ -74,11 +81,14 @@ const getRandomNumber = (a, b) => {
 /* функция генерации сообщения в комментарии */
 const getMessage = (messagesArray) => {
   const message1 = messagesArray[getRandomNumber(0, messagesArray.length - 1)];
-  let message2 = messagesArray[getRandomNumber(0, messagesArray.length - 1)];
-  while (message2 === message1) {
-    message2 = messagesArray[getRandomNumber(0, messagesArray.length - 1)];
+  let message2 = '';
+  if (getRandomNumber(1, 2) === 2) {
+    message2 = ` ${messagesArray[getRandomNumber(0, messagesArray.length - 1)]}`;
+    while (message2 === message1) {
+      message2 = messagesArray[getRandomNumber(0, messagesArray.length - 1)];
+    }
   }
-  return `${message1 } ${ message2}`;
+  return `${message1 }${ message2}`;
 };
 
 /* функция генерации id комментария */
@@ -90,10 +100,10 @@ const getIdNumber = (j, i) => {
 /* функция генерации массива комментариев */
 const getCommentsArray = (names, messages, idPhoto) => {
   const comments = [];
-  for (let i = 0;i < getRandomNumber(0, 30);i++) {
+  for (let i = 0;i < getRandomNumber(COMMENTS_MIN, COMMENTS_MAX);i++) {
     const comment = {
       id: getIdNumber(idPhoto, i + 1),
-      avatar: `img/avatar-${getRandomNumber(1, 6)}.svg`,
+      avatar: `img/avatar-${getRandomNumber(AVATAR_MIN, AVATAR_MAX)}.svg`,
       message: getMessage(messages),
       name: names[getRandomNumber(0, names.length - 1)]
     };
@@ -110,7 +120,7 @@ const getPhotosArray = (descriptions) => {
       id: i,
       url: `photos/${i}.jpg`,
       description: descriptions[i - 1],
-      likes: getRandomNumber(15, 200),
+      likes: getRandomNumber(LIKES_MIN, LIKES_MAX),
       comments: getCommentsArray(NAMES, RAW_MESSAGES, i)
     };
     photos.push(photo);
@@ -119,3 +129,4 @@ const getPhotosArray = (descriptions) => {
 };
 
 getPhotosArray(PHOTOS_DESCRIPTIONS);
+// console.log(getPhotosArray(PHOTOS_DESCRIPTIONS)); // проверка
