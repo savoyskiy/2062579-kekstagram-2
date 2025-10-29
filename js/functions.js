@@ -63,8 +63,8 @@ const getNewArray = (array, transformer) => {
   return newArray;
 };
 
-console.log(getNewArray(originalArray, sumFunction)); // элементы исходного массива увеличиваются на increaser
-console.log(getNewArray(originalArray, multiplicateFunction)); // элементы исходного массива умножаются на increaser
+getNewArray(originalArray, sumFunction); // элементы исходного массива увеличиваются на increaser
+getNewArray(originalArray, multiplicateFunction); // элементы исходного массива умножаются на increaser
 
 /*
 2620. Counter. Given an integer n, return a counter function. This counter function initially returns n and then returns 1 more than the previous value every subsequent time it is called (n, n + 1, n + 2, etc).
@@ -80,7 +80,7 @@ const createCounter = (start) => {
 };
 
 const getResult = createCounter(10);
-console.log(getResult());
-console.log(getResult());
-console.log(getResult());
-console.log(getResult());
+getResult();
+getResult();
+getResult();
+getResult();
