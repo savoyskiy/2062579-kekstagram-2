@@ -81,3 +81,22 @@ getResult();
 getResult();
 getResult();
 getResult();
+
+/*
+2634. Filter Elements from Array. Filtered Array should only contain the elements from the arr for which the expression fn(arr[i], i) evaluates to a truthy value. Solve it without the built-in Array.filter method.
+https://leetcode.com/problems/filter-elements-from-array/description/
+*/
+const minusN = (number, N) => number - N; // функция, меняющая исходный массив
+const someNumber = 1; // какое-то число для изменения исходного массива
+
+const getFilteredArray = (Array, filter) => {
+  const filteredArray = [];
+  for (let i = 0; i < Array.length; i++) {
+    if (filter(Array[i], someNumber)) { // проверка на truthy-значение
+      filteredArray.push(filter(Array[i], someNumber));
+    }
+  }
+  return filteredArray;
+};
+
+getFilteredArray(originalArray, minusN);
