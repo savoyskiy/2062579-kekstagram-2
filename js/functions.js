@@ -42,3 +42,45 @@ const getInteger = (string = '101') => {
 };
 
 getInteger(maybeIntegerString);
+
+// Дополнительные функции
+/*
+2635. Apply Transform Over Each Element in Array, solve it without the built-in Array.map method
+https://leetcode.com/problems/apply-transform-over-each-element-in-array/description/
+*/
+
+const originalArray = [1, 2, 3, 4, 5]; // исходный массив
+const sumFunction = (i, n) => i + n; // функция суммирует поступающие аргументы
+const multiplicateFunction = (i, n) => i * n; // функция перемножает поступающие аргументы
+const increaser = 5; // значение, на которое увеличиваются элементы исходного массива
+
+// увеличивает или умножает каждый элемент исходного массива на increaser в зависимости от переданной функции
+const getNewArray = (array, transformer) => {
+  const newArray = [];
+  for (let i = 0; i < array.length; i++) {
+    newArray[i] = transformer(array[i], increaser);
+  }
+  return newArray;
+};
+
+console.log(getNewArray(originalArray, sumFunction)); // элементы исходного массива увеличиваются на increaser
+console.log(getNewArray(originalArray, multiplicateFunction)); // элементы исходного массива умножаются на increaser
+
+/*
+2620. Counter. Given an integer n, return a counter function. This counter function initially returns n and then returns 1 more than the previous value every subsequent time it is called (n, n + 1, n + 2, etc).
+https://leetcode.com/problems/counter/description/
+*/
+
+const createCounter = (start) => {
+  let startNumber = start - 1;
+  return () => {
+    startNumber++;
+    return startNumber;
+  };
+};
+
+const getResult = createCounter(10);
+console.log(getResult());
+console.log(getResult());
+console.log(getResult());
+console.log(getResult());
