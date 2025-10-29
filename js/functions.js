@@ -43,6 +43,7 @@ const getInteger = (string = '101') => {
 
 getInteger(maybeIntegerString);
 
+
 // Дополнительные функции
 /*
 2635. Apply Transform Over Each Element in Array, solve it without the built-in Array.map method
@@ -66,6 +67,7 @@ const getNewArray = (array, transformer) => {
 getNewArray(originalArray, sumFunction); // элементы исходного массива увеличиваются на increaser
 getNewArray(originalArray, multiplicateFunction); // элементы исходного массива умножаются на increaser
 
+
 /*
 2620. Counter. Given an integer n, return a counter function. This counter function initially returns n and then returns 1 more than the previous value every subsequent time it is called (n, n + 1, n + 2, etc).
 https://leetcode.com/problems/counter/description/
@@ -81,6 +83,7 @@ getResult();
 getResult();
 getResult();
 getResult();
+
 
 /*
 2634. Filter Elements from Array. Filtered Array should only contain the elements from the arr for which the expression fn(arr[i], i) evaluates to a truthy value. Solve it without the built-in Array.filter method.
@@ -100,3 +103,34 @@ const getFilteredArray = (Array, filter) => {
 };
 
 getFilteredArray(originalArray, minusN);
+
+
+/*
+2626. Array Reduce Transformation. Given an integer array nums, a reducer function fn, and an initial value init, return the final result obtained by executing the fn function on each element of the array, sequentially, passing in the return value from the calculation on the preceding element. Solve it without using the built-in Array.reduce method.
+https://leetcode.com/problems/array-reduce-transformation/description/
+*/
+const emptyArray = [];
+const anotherArray = [10, 25, 30, 45, 50, 65, 70];
+const initialNumber = 10;
+
+const summArray = (accum, current) => { // суммирует значения массива
+  const result = accum += current;
+  return result;
+};
+
+const multiplicateArray = (accum, current) => { // перемножает значения массива
+  const result = accum *= current;
+  return result;
+};
+
+const reduceArray = (Array, reduser, init) => {
+  let reducedArray = init;
+  for (let i = 0; i < Array.length; i++) {
+    reducedArray = reduser(reducedArray, Array[i]);
+  }
+  return reducedArray;
+};
+
+reduceArray(emptyArray, summArray, initialNumber);
+reduceArray(anotherArray, summArray, initialNumber);
+reduceArray(originalArray, multiplicateArray, initialNumber);
