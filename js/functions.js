@@ -72,11 +72,8 @@ https://leetcode.com/problems/counter/description/
 */
 
 const createCounter = (start) => {
-  let startNumber = start - 1;
-  return () => {
-    startNumber++;
-    return startNumber;
-  };
+  let startNumber = start;
+  return () => startNumber++;
 };
 
 const getResult = createCounter(10);
