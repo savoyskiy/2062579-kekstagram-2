@@ -70,7 +70,6 @@ const COMMENTS_MIN = 0;
 const COMMENTS_MAX = 30;
 const AVATAR_MIN = 1;
 const AVATAR_MAX = 6;
-const ID_FACTOR = 1000;
 
 /* функция получения случайного числа в диапазоне от А до В */
 const getRandomNumber = (a, b) => {
@@ -90,18 +89,20 @@ const getMessage = (messagesArray) => {
   return message;
 };
 
-/* функция генерации id комментария */
-const getIdNumber = (j, i) => {
-  const id = j * ID_FACTOR + i;
-  return id;
+/* функция генерации id */
+const createId = () => {
+  let lastCreateId = 0;
+  return () => lastCreateId++;
 };
+/* функция генерации id комментария */
+const getIdComment = createId();
 
 /* функция генерации массива комментариев */
-const getCommentsArray = (names, messages, idPhoto) => {
+const getCommentsArray = (names, messages) => {
   const comments = [];
   for (let i = 0;i < getRandomNumber(COMMENTS_MIN, COMMENTS_MAX);i++) {
     const comment = {
-      id: getIdNumber(idPhoto, i + 1),
+      id: getIdComment(),
       avatar: `img/avatar-${getRandomNumber(AVATAR_MIN, AVATAR_MAX)}.svg`,
       message: getMessage(messages),
       name: names[getRandomNumber(0, names.length - 1)]
@@ -128,4 +129,4 @@ const getPhotosArray = (descriptions) => {
 };
 
 getPhotosArray(PHOTOS_DESCRIPTIONS);
-// console.log(getPhotosArray(PHOTOS_DESCRIPTIONS)); // проверка
+console.log(getPhotosArray(PHOTOS_DESCRIPTIONS)); // проверка
