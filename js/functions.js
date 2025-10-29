@@ -134,3 +134,31 @@ const reduceArray = (Array, reduser, init) => {
 reduceArray(emptyArray, summArray, initialNumber);
 reduceArray(anotherArray, summArray, initialNumber);
 reduceArray(originalArray, multiplicateArray, initialNumber);
+
+/*
+2648. Generate Fibonacci Sequence. Write a generator function that returns a generator object which yields the fibonacci sequence.
+https://leetcode.com/problems/generate-fibonacci-sequence/description/
+*/
+const callNumber = 10; // число шагов .next()
+
+const generateFibonacci = function* (first, second) { // генераторная функция последовательности
+  const sequence = [];
+  yield sequence[0] = first;
+  yield sequence[1] = second;
+  let i = 1;
+  while (true) {
+    i++;
+    yield sequence[i] = sequence[i - 1] + sequence[i - 2];
+  }
+};
+
+const generatorSequence = (number, generator, one, two) => { // функция запускающая генераторную указанное число раз (number)
+  const fibonacciSequence = [];
+  const gen = generator(one, two);
+  for (let i = 0; i < number; i++) {
+    fibonacciSequence[i] = gen.next().value;
+  }
+  return fibonacciSequence;
+};
+
+generatorSequence(callNumber, generateFibonacci, 0, 1);
