@@ -129,4 +129,3 @@ const getPhotosArray = (descriptions) => {
 };
 
 getPhotosArray(PHOTOS_DESCRIPTIONS);
-console.log(getPhotosArray(PHOTOS_DESCRIPTIONS)); // проверка
