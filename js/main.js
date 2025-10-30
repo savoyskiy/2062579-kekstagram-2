@@ -64,12 +64,18 @@ const NAMES = [
   'Яна'
 ];
 
-const LIKES_MIN = 15;
-const LIKES_MAX = 200;
-const COMMENTS_MIN = 0;
-const COMMENTS_MAX = 30;
-const AVATAR_MIN = 1;
-const AVATAR_MAX = 6;
+const LIKES_NUMBER = {
+  MIN: 15,
+  MAX: 200
+};
+const COMMENTS_NUMBER = {
+  MIN: 0,
+  MAX: 30
+};
+const AVATAR_NUMBER = {
+  MIN: 1,
+  MAX: 6
+};
 
 /* функция получения случайного числа в диапазоне от А до В */
 const getRandomNumber = (a, b) => {
@@ -100,10 +106,11 @@ const getIdComment = createId();
 /* функция генерации массива комментариев */
 const getCommentsArray = (names, messages) => {
   const comments = [];
-  for (let i = 0;i < getRandomNumber(COMMENTS_MIN, COMMENTS_MAX);i++) {
+  const commentsNumber = getRandomNumber(COMMENTS_NUMBER.MIN, COMMENTS_NUMBER.MAX);
+  for (let i = 0;i < commentsNumber;i++) {
     const comment = {
       id: getIdComment(),
-      avatar: `img/avatar-${getRandomNumber(AVATAR_MIN, AVATAR_MAX)}.svg`,
+      avatar: `img/avatar-${getRandomNumber(AVATAR_NUMBER.MIN, AVATAR_NUMBER.MAX)}.svg`,
       message: getMessage(messages),
       name: names[getRandomNumber(0, names.length - 1)]
     };
@@ -120,7 +127,7 @@ const getPhotosArray = (descriptions) => {
       id: i,
       url: `photos/${i}.jpg`,
       description: descriptions[i - 1],
-      likes: getRandomNumber(LIKES_MIN, LIKES_MAX),
+      likes: getRandomNumber(LIKES_NUMBER.MIN, LIKES_NUMBER.MAX),
       comments: getCommentsArray(NAMES, RAW_MESSAGES, i)
     };
     photos.push(photo);
