@@ -95,9 +95,9 @@ const getMessage = (messagesArray) => {
   return message;
 };
 
-/* функция генерации id */
-const createId = () => {
-  let lastCreateId = 0;
+/* функция генерации id, по умолчанию начинается с 0 */
+const createId = (start = 0) => {
+  let lastCreateId = start;
   return () => lastCreateId++;
 };
 /* функция генерации id комментария */
@@ -136,3 +136,27 @@ const getPhotosArray = (descriptions) => {
 };
 
 getPhotosArray(PHOTOS_DESCRIPTIONS);
+
+
+/* альтернативный вариант: функция формирует один объект с описанием одного фото. На основе этой функции формируется массив объектов заданной длины */
+
+// const PHOTOS_ID = { // идентификаторы фотографий по ТЗ от 1 до 25
+//   START: 1,
+//   END: 25
+// };
+
+// const getIdPhoto = createId(PHOTOS_ID.START); // счетчик id для фотографий
+
+// const getPhotoDescription = () => {
+//   const Id = getIdPhoto();
+//   const photo = {
+//     id: Id,
+//     url: `photos/${Id}.jpg`,
+//     description: PHOTOS_DESCRIPTIONS[Id - 1],
+//     likes: getRandomNumber(LIKES_NUMBER.MIN, LIKES_NUMBER.MAX),
+//     comments: getCommentsArray(NAMES, RAW_MESSAGES, Id)
+//   };
+//   return photo;
+// };
+
+// const photosArray = Array.from({ length: PHOTOS_ID.END}, getPhotoDescription); // формируем массив описаний
