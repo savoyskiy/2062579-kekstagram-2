@@ -159,4 +159,9 @@ getPhotosArray(PHOTOS_DESCRIPTIONS);
 //   return photo;
 // };
 
-// const photosArray = Array.from({ length: PHOTOS_ID.END}, getPhotoDescription); // формируем массив описаний
+// const createPhotosArray = (arrayLength, creator) => { // функция, формирующая массив описаний
+//   const photosArray = Array.from({ length: arrayLength}, creator);
+//   return photosArray;
+// };
+
+// createPhotosArray(PHOTOS_ID.END, getPhotoDescription);
