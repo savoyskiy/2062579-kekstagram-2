@@ -11,6 +11,9 @@ const compareMeteengWork = (start, end, time, meetLength) => {
     if (typeof timeArray[i] !== 'string' || !timeArray[i].includes(':')) {
       return 'Введите данные в верном формате \'чч:мм\'';
     }
+    if (typeof lengthMeeteng !== 'number') {
+      return 'Введите продолжительность встречи числом (в минутах)';
+    }
   }
 
   const startDayMinute = Number(start.split(':')[0]) * MINUTES_IN_HOUR + Number(start.split(':')[1]); // высчитываем минуту начала дня
