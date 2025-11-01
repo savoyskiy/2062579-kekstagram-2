@@ -1,5 +1,5 @@
-import {getPhotosArray} from './data';
-import {createPhotosArray} from './data';
+import {getPhotosArray} from './create-photos-array';
+import {createPhotosArray} from './create-photos-array';
 
 const photosArray = getPhotosArray();
 const photosArrayAlternate = createPhotosArray();

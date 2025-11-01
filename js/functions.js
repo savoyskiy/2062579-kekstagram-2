@@ -1,6 +1,6 @@
-const startMeeteng = '09:00'; // время начала встречи
+const startMeeteng = '09:05'; // время начала встречи
 const lengthMeeteng = 90; // длительность встречи
-const startWork = '08:05'; // начало работы
+const startWork = '33:00'; // начало работы
 const endWork = '17:00'; // окончание работы
 const MINUTES_IN_HOUR = 60;
 
@@ -15,17 +15,19 @@ const compareMeteengWork = (start, end, time, meetLength) => {
   if (typeof lengthMeeteng !== 'number') {
     return 'Введите продолжительность встречи числом (в минутах)';
   }
+  /* высчитываем минуты начала/конца дня и встречи */
+  const startDayMinute = Number(start.split(':')[0]) * MINUTES_IN_HOUR + Number(start.split(':')[1]);
+  const startMeetMinute = Number(time.split(':')[0]) * MINUTES_IN_HOUR + Number(time.split(':')[1]);
+  const endDayMinute = Number(end.split(':')[0]) * MINUTES_IN_HOUR + Number(end.split(':')[1]);
+  const endMeetMinute = startMeetMinute + meetLength;
 
-  const startDayMinute = Number(start.split(':')[0]) * MINUTES_IN_HOUR + Number(start.split(':')[1]); // высчитываем минуту начала дня
-  const startMeetMinute = Number(time.split(':')[0]) * MINUTES_IN_HOUR + Number(time.split(':')[1]); // высчитываем минуту начала встречи
-  const endDayMinute = Number(end.split(':')[0]) * MINUTES_IN_HOUR + Number(end.split(':')[1]); // высчитываем минуту конца дня
-  const endMeetMinute = startMeetMinute + meetLength; // высчитываем минуту конца встречи
-  // проверка, что удалось преобразовать в число
-  if (isNaN(startDayMinute) || isNaN(startMeetMinute) || isNaN(endDayMinute)) {
+  if (isNaN(startDayMinute) || isNaN(startMeetMinute) || isNaN(endDayMinute)) { // проверка, что удалось преобразовать в число (т.е. данные введены в нужном формате)
     return 'Введите данные в верном формате \'чч:мм\'';
   }
-  // если начало или конец встречи раньше начала или позже конца рабочего дня возвращаем false
-  if (startDayMinute > startMeetMinute || endMeetMinute > endDayMinute) {
+  if (startDayMinute > 1440 || startMeetMinute > 1440 || endDayMinute > 1440) { // проверка, что время введено корректно
+    return 'Время не может быть больше 24:00';
+  }
+  if (startDayMinute > startMeetMinute || endMeetMinute > endDayMinute) { // если начало/конец встречи раньше начала/позже конца раб.дня возвращаем false
     return false;
   }
 
