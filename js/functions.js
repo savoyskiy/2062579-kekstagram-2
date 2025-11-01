@@ -1,7 +1,7 @@
-const startMeeteng = '06:05'; // время начала встречи
-const lengthMeeteng = '90'; // длительность встречи
-const startWork = '8:5'; // начало работы
-const endWork = '17:0'; // окончание работы
+const startMeeteng = '09:00'; // время начала встречи
+const lengthMeeteng = 90; // длительность встречи
+const startWork = '08:05'; // начало работы
+const endWork = '17:00'; // окончание работы
 const MINUTES_IN_HOUR = 60;
 
 const compareMeteengWork = (start, end, time, meetLength) => {
