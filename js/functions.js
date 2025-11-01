@@ -1,19 +1,19 @@
 const startMeeteng = '06:05'; // время начала встречи
-const lengthMeeteng = 90; // длительность встречи
+const lengthMeeteng = '90'; // длительность встречи
 const startWork = '8:5'; // начало работы
 const endWork = '17:0'; // окончание работы
 const MINUTES_IN_HOUR = 60;
 
 const compareMeteengWork = (start, end, time, meetLength) => {
   const timeArray = [start, end, time];
-  // проверка, что в вводных данных строки и есть нужный разделитель
+  // проверки, что в вводные данные в верных форматах и с нужным разделителем
   for (let i = 0; i < 3; i++) {
     if (typeof timeArray[i] !== 'string' || !timeArray[i].includes(':')) {
       return 'Введите данные в верном формате \'чч:мм\'';
     }
-    if (typeof lengthMeeteng !== 'number') {
-      return 'Введите продолжительность встречи числом (в минутах)';
-    }
+  }
+  if (typeof lengthMeeteng !== 'number') {
+    return 'Введите продолжительность встречи числом (в минутах)';
   }
 
   const startDayMinute = Number(start.split(':')[0]) * MINUTES_IN_HOUR + Number(start.split(':')[1]); // высчитываем минуту начала дня
