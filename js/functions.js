@@ -179,16 +179,15 @@ compareMeteengWork(startWork, endWork, startMeeteng, lengthMeeteng);
 // 2648. Generate Fibonacci Sequence. Write a generator function that returns a generator object which yields the fibonacci sequence.
 // https://leetcode.com/problems/generate-fibonacci-sequence/description/
 // */
-// const callNumber = 10; // число шагов .next()
+// const callNumber = 16; // число шагов .next()
 
 // const generateFibonacci = function* (first, second) { // генераторная функция последовательности
-//   const sequence = [];
-//   yield sequence[0] = first;
-//   yield sequence[1] = second;
-//   let i = 1;
+//   let a = first;
+//   let b = second;
+//   yield a;
 //   while (true) {
-//     i++;
-//     yield sequence[i] = sequence[i - 1] + sequence[i - 2];
+//     yield b;
+//     [a, b] = [b, a + b]; // считаем последовательность и храним только последние два числа
 //   }
 // };
 
