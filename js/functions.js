@@ -135,7 +135,6 @@ reduceArray(emptyArray, summArray, initialNumber);
 reduceArray(anotherArray, summArray, initialNumber);
 reduceArray(originalArray, multiplicateArray, initialNumber);
 
-
 /*
 2648. Generate Fibonacci Sequence. Write a generator function that returns a generator object which yields the fibonacci sequence.
 https://leetcode.com/problems/generate-fibonacci-sequence/description/
