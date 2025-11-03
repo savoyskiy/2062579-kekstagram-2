@@ -119,49 +119,30 @@ const getCommentsArray = (names, messages) => {
   return comments;
 };
 
-/* функция генерации массива объектов с фотографиями */
-const getPhotosArray = (descriptions) => {
-  const photos = [];
-  for (let i = 1;i <= descriptions.length;i++) {
-    const photo = {
-      id: i,
-      url: `photos/${i}.jpg`,
-      description: descriptions[i - 1],
-      likes: getRandomNumber(LIKES_NUMBER.MIN, LIKES_NUMBER.MAX),
-      comments: getCommentsArray(NAMES, RAW_MESSAGES, i)
-    };
-    photos.push(photo);
-  }
-  return photos;
+/* функции генерации массива объектов с фотографиями */
+
+const PHOTOS_ID = { // идентификаторы фотографий по ТЗ от 1 до 25
+  START: 1,
+  END: 25
 };
 
-getPhotosArray(PHOTOS_DESCRIPTIONS);
+const getIdPhoto = createId(PHOTOS_ID.START); // счетчик id для фотографий
 
+const getPhotoDescription = () => { // функция формирует один объект с описанием одного фото
+  const Id = getIdPhoto();
+  const photo = {
+    id: Id,
+    url: `photos/${Id}.jpg`,
+    description: PHOTOS_DESCRIPTIONS[Id - 1],
+    likes: getRandomNumber(LIKES_NUMBER.MIN, LIKES_NUMBER.MAX),
+    comments: getCommentsArray(NAMES, RAW_MESSAGES, Id)
+  };
+  return photo;
+};
 
-/* альтернативный вариант: функция формирует один объект с описанием одного фото. На основе этой функции формируется массив объектов заданной длины */
+const createPhotosArray = (arrayLength, creator) => { // функция, формирующая массив описаний заданной длины
+  const photosArray = Array.from({ length: arrayLength}, creator);
+  return photosArray;
+};
 
-// const PHOTOS_ID = { // идентификаторы фотографий по ТЗ от 1 до 25
-//   START: 1,
-//   END: 25
-// };
-
-// const getIdPhoto = createId(PHOTOS_ID.START); // счетчик id для фотографий
-
-// const getPhotoDescription = () => {
-//   const Id = getIdPhoto();
-//   const photo = {
-//     id: Id,
-//     url: `photos/${Id}.jpg`,
-//     description: PHOTOS_DESCRIPTIONS[Id - 1],
-//     likes: getRandomNumber(LIKES_NUMBER.MIN, LIKES_NUMBER.MAX),
-//     comments: getCommentsArray(NAMES, RAW_MESSAGES, Id)
-//   };
-//   return photo;
-// };
-
-// const createPhotosArray = (arrayLength, creator) => { // функция, формирующая массив описаний
-//   const photosArray = Array.from({ length: arrayLength}, creator);
-//   return photosArray;
-// };
-
-// createPhotosArray(PHOTOS_ID.END, getPhotoDescription);
+createPhotosArray(PHOTOS_ID.END, getPhotoDescription);
