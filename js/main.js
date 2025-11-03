@@ -76,6 +76,10 @@ const AVATAR_NUMBER = {
   MIN: 1,
   MAX: 6
 };
+const PHOTOS_ID = { // идентификаторы фотографий по ТЗ от 1 до 25
+  START: 1,
+  END: 25
+};
 
 /* функция получения случайного числа в диапазоне от А до В */
 const getRandomNumber = (a, b) => {
@@ -120,12 +124,6 @@ const getCommentsArray = (names, messages) => {
 };
 
 /* функции генерации массива объектов с фотографиями */
-
-const PHOTOS_ID = { // идентификаторы фотографий по ТЗ от 1 до 25
-  START: 1,
-  END: 25
-};
-
 const getIdPhoto = createId(PHOTOS_ID.START); // счетчик id для фотографий
 
 const getPhotoDescription = () => { // функция формирует один объект с описанием одного фото
