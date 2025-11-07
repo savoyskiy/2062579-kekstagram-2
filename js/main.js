@@ -1,7 +1,4 @@
-import {getPhotosArray} from './data';
 import {createPhotosArray} from './data';
 
-const photosArray = getPhotosArray();
-const photosArrayAlternate = createPhotosArray();
+const photosArray = createPhotosArray();
 console.log(photosArray);
-console.log(photosArrayAlternate);
