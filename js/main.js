@@ -92,11 +92,7 @@ const getRandomNumber = (a, b) => {
 const getMessage = (messagesArray) => {
   const message1 = messagesArray[getRandomNumber(0, messagesArray.length - 1)];
   const message2 = messagesArray[getRandomNumber(0, messagesArray.length - 1)];
-  let message = message1;
-  if (message1 !== message2) {
-    message += ` ${message2}`;
-  }
-  return message;
+  return message1 !== message2 ? `${message1} ${message2}` : message1;
 };
 
 /* функция генерации id, по умолчанию начинается с 0 */
