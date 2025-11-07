@@ -13,6 +13,11 @@ const AVATAR_NUMBER = { // номера генерируемых аватаро�
   MIN: 1,
   MAX: 6
 };
+const PHOTOS_ID = { // идентификаторы фотографий по ТЗ от 1 до 25
+  START: 1,
+  END: 25
+};
+
 /* деструктурируем импортированные данные */
 const {PHOTOS_DESCRIPTIONS, RAW_MESSAGES, NAMES} = getDataArrays();
 
@@ -20,11 +25,7 @@ const {PHOTOS_DESCRIPTIONS, RAW_MESSAGES, NAMES} = getDataArrays();
 const getMessage = (messagesArray) => {
   const message1 = messagesArray[getRandomNumber(0, messagesArray.length - 1)];
   const message2 = messagesArray[getRandomNumber(0, messagesArray.length - 1)];
-  let message = message1;
-  if (message1 !== message2) {
-    message += ` ${message2}`;
-  }
-  return message;
+  return message1 !== message2 ? `${message1} ${message2}` : message1;
 };
 
 /* функция генерации id комментария, первый id=1 */
@@ -46,30 +47,7 @@ const getCommentsArray = (names, messages) => {
   return comments;
 };
 
-/* функция генерации массива объектов с фотографиями */
-const getPhotosArray = () => {
-  const photos = [];
-  for (let i = 1;i <= PHOTOS_DESCRIPTIONS.length;i++) {
-    const photo = {
-      id: i,
-      url: `photos/${i}.jpg`,
-      description: PHOTOS_DESCRIPTIONS[i - 1],
-      likes: getRandomNumber(LIKES_NUMBER.MIN, LIKES_NUMBER.MAX),
-      comments: getCommentsArray(NAMES, RAW_MESSAGES, i)
-    };
-    photos.push(photo);
-  }
-  return photos;
-};
-
-export {getPhotosArray};
-
-/* альтернативный вариант: функция формирует один объект с описанием одного фото. На основе этой функции формируется массив объектов заданной длины */
-
-const PHOTOS_ID = { // идентификаторы фотографий по ТЗ от 1 до 25
-  START: 1,
-  END: 25
-};
+/* функции генерации массива объектов с фотографиями */
 
 const getIdPhoto = createId(PHOTOS_ID.START); // счетчик id для фотографий
 
