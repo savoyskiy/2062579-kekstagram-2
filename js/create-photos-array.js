@@ -1,5 +1,5 @@
-import {getRandomNumber, createId} from './utils.js';
-import {getDataArrays} from './data.js';
+import { getRandomNumber, createId } from './utils.js';
+import { getDataArrays } from './data.js';
 
 const LIKES_NUMBER = { // количество лайков от мин до макс
   MIN: 15,
@@ -19,7 +19,7 @@ const PHOTOS_ID = { // идентификаторы фотографий по Т
 };
 
 /* деструктурируем импортированные данные */
-const {PHOTOS_DESCRIPTIONS, RAW_MESSAGES, NAMES} = getDataArrays();
+const { PHOTOS_DESCRIPTIONS, RAW_MESSAGES, NAMES } = getDataArrays();
 
 /* функция генерации сообщения в комментарии */
 const getMessage = (messagesArray) => {
@@ -35,7 +35,7 @@ const getIdComment = createId(1);
 const getCommentsArray = (names, messages) => {
   const comments = [];
   const commentsNumber = getRandomNumber(COMMENTS_NUMBER.MIN, COMMENTS_NUMBER.MAX);
-  for (let i = 0;i < commentsNumber;i++) {
+  for (let i = 0; i < commentsNumber; i++) {
     const comment = {
       id: getIdComment(),
       avatar: `img/avatar-${getRandomNumber(AVATAR_NUMBER.MIN, AVATAR_NUMBER.MAX)}.svg`,
@@ -63,6 +63,4 @@ const getPhotoDescription = () => { // функция формирования �
   return photo;
 };
 
-const createPhotosArray = () => Array.from({ length: PHOTOS_ID.END}, getPhotoDescription); // функция, формирующая массив описаний
-
-export {createPhotosArray};
+export const createPhotosArray = () => Array.from({ length: PHOTOS_ID.END }, getPhotoDescription); // функция, формирующая массив описаний
