@@ -3,11 +3,12 @@ const pictureTemplate = document.querySelector('#picture').content.querySelector
 const picturesFragment = document.createDocumentFragment(); // фрагмент
 
 export const createPictures = (datasArray) => {
-  datasArray.forEach(({id, url, description, likes, comments}) => {
+  datasArray.forEach(({ id, url, description, likes, comments }) => {
     const picturesListItem = pictureTemplate.cloneNode(true);
     const image = picturesListItem.querySelector('.picture__img');
     image.src = url;
     image.alt = description;
+    image.id = id;
     const likesNumber = picturesListItem.querySelector('.picture__likes');
     likesNumber.textContent = likes;
     const commentsNumber = picturesListItem.querySelector('.picture__comments');
