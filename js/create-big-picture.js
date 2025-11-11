@@ -7,12 +7,13 @@ const socialCaption = bigPicture.querySelector('.social__caption'); // опис�
 const socialCommentsTotal = bigPicture.querySelector('.social__comment-total-count'); // кол-во комментариев
 const likesCount = bigPicture.querySelector('.likes-count'); // кол-во лайков
 const socialComments = bigPicture.querySelector('.social__comments'); // блок с комментариями
-const socialCommentCount = bigPicture.querySelector('.social__comment-count'); //
-const commentsLoader = bigPicture.querySelector('.comments-loader');
+const socialCommentsCollection = socialComments.children; //
+const socialCommentShownCount = bigPicture.querySelector('.social__comment-shown-count'); //
+const commentsLoader = bigPicture.querySelector('.comments-loader'); //
 
 const createCommentsListItem = (comment) => { // ф-я создания комментария
   const commentListItem = document.createElement('LI');
-  commentListItem.classList.add('social__comment');
+  commentListItem.classList.add('social__comment', 'hidden');
   const commentText = document.createElement('P');
   commentText.classList.add('social__text');
   commentText.textContent = comment.message;
@@ -26,12 +27,24 @@ const createCommentsListItem = (comment) => { // ф-я создания комм
   socialComments.append(commentListItem);
 };
 
+const openComments = () => { // ф-я, открывающая 5 комментариев
+  const workArray = Array.from(socialCommentsCollection); // превращаем коллекцию в массив
+  const startElement = workArray.findIndex((elem) => // находим, какой первый элемент с классом 'hidden'
+    elem.classList.contains('hidden')
+  );
+  for (let i = startElement; i < startElement + 5; i++) { // удаляем с 5 эл-в класс 'hidden' начиная с первого найденного
+    if (workArray[i]) { // проверяем, что такой элемент существует и удаляем с него класс
+      workArray[i].classList.remove('hidden');
+    }
+  }
+};
+
 const closeBigPicture = () => { // функция закрытия окна
   bigPicture.classList.add('hidden'); // закрыть окно
 
-  socialCommentCount.classList.remove('hidden'); // прячем блоки по заданию 8.14
-  commentsLoader.classList.remove('hidden'); // прячем блоки по заданию 8.14
   BODY.classList.remove('modal-open');
+
+  commentsLoader.removeEventListener('click', openComments); // снять обработчик с кнопки дозагрузки комм-в
 
   bigPictureCancel.removeEventListener('click', closeBigPicture); // снять обработчик с крестика
 
@@ -57,11 +70,12 @@ export const openBigPicture = (evt, array) => { // функция открыти
   if (evt.target.matches('.picture__img')) {
     bigPicture.classList.remove('hidden'); // открыть окно
 
-    const index = evt.target.id - 1; // определяем индекс элемента в объекте
+    const index = evt.target.id - 1; // определяем какой индекс элемента, по которому кликнули, в объекте
     packBigPictureData(array, index); // заполняем модальное окно данными большого фото из объекта
-    socialCommentCount.classList.add('hidden'); // прячем блоки по заданию 8.14
-    commentsLoader.classList.add('hidden'); // прячем блоки по заданию 8.14
     BODY.classList.add('modal-open');
+
+    openComments(); // сразу загружаем 5 комментариев
+    commentsLoader.addEventListener('click', openComments); // вешаем обработчик на кнопку загрузки комм-в
 
     bigPictureCancel.addEventListener('click', closeBigPicture); // повесить обработчик на крестик
 
