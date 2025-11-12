@@ -1,51 +1,54 @@
 const BODY = document.querySelector('BODY');
-const NUMBER_OPEN_COMMENTS = 5; // по сколько комментариев показываем за раз
+const NUMBER_OPEN_COMMENTS = 5; // сколько комментариев показываем за один раз
 export const picturesContainer = document.querySelector('.pictures'); // контейнер с фото
-const bigPicture = document.querySelector('.big-picture'); // большое фото
+const bigPicture = document.querySelector('.big-picture'); // блок большого фото
 const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel'); // крестик на большом фото
-const bigPictureImg = bigPicture.querySelector('.big-picture__img img'); // большое фото
+const bigPictureImg = bigPicture.querySelector('.big-picture__img img'); // изображение большого фото
 const socialCaption = bigPicture.querySelector('.social__caption'); // описание фото
 const socialCommentsTotal = bigPicture.querySelector('.social__comment-total-count'); // кол-во комментариев
 const likesCount = bigPicture.querySelector('.likes-count'); // кол-во лайков
 const socialComments = bigPicture.querySelector('.social__comments'); // блок с комментариями
-const socialCommentsCollection = socialComments.children; //
-const socialCommentShownCount = bigPicture.querySelector('.social__comment-shown-count'); //
-const commentsLoader = bigPicture.querySelector('.comments-loader'); //
+const socialCommentsCollection = socialComments.children; // все комментарии к фото
+const socialCommentShownCount = bigPicture.querySelector('.social__comment-shown-count'); // количество показанных комм-в
+const commentsLoader = bigPicture.querySelector('.comments-loader'); // кнопка загрузки комм-в
 
-const createCommentsListItem = (comment) => { // ф-я создания комментария
+const createCommentsListItem = (comment) => { // функция создания комментария
   const commentListItem = document.createElement('LI');
   commentListItem.classList.add('social__comment', 'hidden');
+
   const commentText = document.createElement('P');
   commentText.classList.add('social__text');
   commentText.textContent = comment.message;
+
   const commentAvatar = document.createElement('IMG');
   commentAvatar.classList.add('social__picture');
   commentAvatar.width = '35';
   commentAvatar.height = '35';
   commentAvatar.src = comment.avatar;
   commentAvatar.alt = comment.name;
+
   commentListItem.append(commentAvatar, commentText);
   socialComments.append(commentListItem);
 };
 
-const countOpenComments = (i) => { // ф-я отображения кол-ва показанных комм-в
+const countOpenComments = (i) => { // функция отображения кол-ва показанных комм-в
   socialCommentShownCount.textContent = i + 1;
 };
 
-const hiddenCommentLoaderButton = (array, i) => { // ф-я скрыающая кнопку-загрузчик комментариев при загрузке последнего комментария
+const hiddenCommentLoaderButton = (array, i) => { // функция, скрыающая кнопку-загрузчик комментариев при загрузке последнего комментария
   if (i === array.length - 1) {
     commentsLoader.classList.add('hidden'); // скрыть кнопку
     commentsLoader.removeEventListener('click', manageComments); // снять обработчик с кнопки
   }
 };
 
-const openComments = (array, i) => { // ф-я, открывающая комментарии
-  if (array[i]) { // проверяем, что такой элемент существует и удаляем с него класс
+const openComments = (array, i) => { // функция, открывающая комментарии
+  if (array[i]) { // проверяем, что такой элемент существует и удаляем с него класс 'hidden'
     array[i].classList.remove('hidden');
   }
 };
 
-const manageComments = () => { // ф-я управления блоком комментариев
+const manageComments = () => { // функция управления блоком комментариев
   const workArray = Array.from(socialCommentsCollection); // превращаем коллекцию в массив
   const startElement = workArray.findIndex((elem) => // находим, какой первый элемент с классом 'hidden'
     elem.classList.contains('hidden')
@@ -72,7 +75,7 @@ const closeBigPicture = () => { // функция закрытия окна
   document.removeEventListener('keydown', onEscapeDown); // снять обработчик с эскейпа
 };
 
-const onEscapeDown = (evt) => { // ф-я закрытия окна по эскейпу
+const onEscapeDown = (evt) => { // функция закрытия окна по эскейпу
   if (evt.key === 'Escape') {
     closeBigPicture();
   }
