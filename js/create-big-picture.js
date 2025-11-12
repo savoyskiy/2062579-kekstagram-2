@@ -92,6 +92,7 @@ const packBigPictureData = (array, id) => { // функция заполнени
 
 export const openBigPicture = (evt, array) => { // функция открытия окна
   if (evt.target.matches('.picture__img')) {
+    evt.preventDefault();
     bigPicture.classList.remove('hidden'); // открыть окно
 
     const index = evt.target.id - 1; // определяем какой индекс элемента, по которому кликнули, в объекте
