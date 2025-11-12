@@ -53,6 +53,7 @@ const manageComments = () => { // функция управления блоко
   const startElement = workArray.findIndex((elem) => // находим, какой первый элемент с классом 'hidden'
     elem.classList.contains('hidden')
   );
+  socialCommentShownCount.textContent = 0;
   for (let i = startElement; i < startElement + NUMBER_OPEN_COMMENTS; i++) { // удаляем с 5 эл-в класс 'hidden' начиная с первого найденного
     if (!workArray[i]) { // завершаем цикл если элементы закончились
       break;
