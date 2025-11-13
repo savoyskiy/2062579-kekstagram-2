@@ -12,23 +12,40 @@ const socialCommentsCollection = socialComments.children; // все коммен
 const socialCommentShownCount = bigPicture.querySelector('.social__comment-shown-count'); // количество показанных комм-в
 const commentsLoader = bigPicture.querySelector('.comments-loader'); // кнопка загрузки комм-в
 
-const createCommentsListItem = (comment) => { // функция создания комментария
-  const commentListItem = document.createElement('LI');
-  commentListItem.classList.add('social__comment', 'hidden');
+const socialCommentsTemplate = bigPicture.querySelector('.social__comment'); // комментарий в разметке
+const socialCommentsFragment = document.createDocumentFragment(); // фрагмент для комментариев
 
-  const commentText = document.createElement('P');
-  commentText.classList.add('social__text');
+// const createCommentsListItem = (comment) => { // функция создания комментария
+//   const commentListItem = document.createElement('LI');
+//   commentListItem.classList.add('social__comment', 'hidden');
+
+//   const commentText = document.createElement('P');
+//   commentText.classList.add('social__text');
+//   commentText.textContent = comment.message;
+
+//   const commentAvatar = document.createElement('IMG');
+//   commentAvatar.classList.add('social__picture');
+//   commentAvatar.width = '35';
+//   commentAvatar.height = '35';
+//   commentAvatar.src = comment.avatar;
+//   commentAvatar.alt = comment.name;
+
+//   commentListItem.append(commentAvatar, commentText);
+//   socialComments.append(commentListItem);
+// };
+
+const createCommentsListItem = (comment) => { // функция создания комментария
+  const commentListItem = socialCommentsTemplate.cloneNode(true);
+  commentListItem.classList.add('hidden');
+
+  const commentText = commentListItem.querySelector('.social__text');
   commentText.textContent = comment.message;
 
-  const commentAvatar = document.createElement('IMG');
-  commentAvatar.classList.add('social__picture');
-  commentAvatar.width = '35';
-  commentAvatar.height = '35';
+  const commentAvatar = commentListItem.querySelector('.social__picture');
   commentAvatar.src = comment.avatar;
   commentAvatar.alt = comment.name;
 
-  commentListItem.append(commentAvatar, commentText);
-  socialComments.append(commentListItem);
+  socialCommentsFragment.append(commentListItem);
 };
 
 const countOpenComments = (i) => { // функция отображения кол-ва показанных комм-в
@@ -89,6 +106,7 @@ const packBigPictureData = (array, id) => { // функция заполнени
   likesCount.textContent = array[id].likes;
   socialComments.innerHTML = '';
   array[id].comments.forEach(createCommentsListItem);
+  socialComments.append(socialCommentsFragment);
 };
 
 export const openBigPicture = (evt, array) => { // функция открытия окна
