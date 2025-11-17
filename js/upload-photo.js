@@ -1,11 +1,13 @@
 const BODY = document.querySelector('BODY');
-const uploadImageForm = document.querySelector('.img-upload__form');
+const uploadImageForm = document.querySelector('.img-upload__form'); // форма загрузки фото
 export const uploadImageInput = uploadImageForm.querySelector('.img-upload__input'); // поле загрузки фото
 const uploadImageOverlay = uploadImageForm.querySelector('.img-upload__overlay'); // окно загрузки комм-я
 const uploadImagePreview = uploadImageForm.querySelector('.img-upload__preview img'); // превьюшка
 const uploadImageCancel = uploadImageForm.querySelector('.img-upload__cancel'); // кнопка закрытия
+const effectsPreviews = uploadImageForm.querySelectorAll('.effects__preview'); // превьюшки в фильтрах
 
-const closeUploadForm = () => {
+
+const closeUploadForm = () => { // функция закрытия формы
   uploadImageOverlay.classList.add('hidden');
   BODY.classList.remove('modal-open');
 
@@ -13,7 +15,7 @@ const closeUploadForm = () => {
 
   document.removeEventListener('keydown', onEscapeDown); // снять обработчик с эскейпа
 
-  uploadImagePreview.src = 'img/upload-default-image.jpg'; // вернуть превью значение по-умолчанию
+  uploadImageInput.value = ''; // вернуть полю загрузки фото значение по-умолчанию
 };
 
 const onEscapeDown = (evt) => { // функция закрытия окна по эскейпу
@@ -22,7 +24,7 @@ const onEscapeDown = (evt) => { // функция закрытия окна по
   }
 };
 
-export const openUploadForm = (evt) => {
+export const openUploadForm = (evt) => { // функция открытия формы
   uploadImageOverlay.classList.remove('hidden');
   BODY.classList.add('modal-open');
   /* следующие две строки потребовались, чтобы обойти ошибку 'not allowed to load local resource' */
@@ -30,6 +32,10 @@ export const openUploadForm = (evt) => {
   const source = URL.createObjectURL(file);
 
   uploadImagePreview.src = source; // подставляем загруженное фото в превью
+
+  effectsPreviews.forEach((effectsPreview) => { // и в превьюшки эффектов
+    effectsPreview.style.backgroundImage = `url(${source})`;
+  });
 
   uploadImageCancel.addEventListener('click', closeUploadForm); // обработчик на крестик
 

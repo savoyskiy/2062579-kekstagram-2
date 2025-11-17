@@ -1,16 +1,3 @@
-import { createPhotosArray } from './create-photos-array.js'; // импорт функции, генерирующей моковые данные
-import { createPictures } from './create-pictures.js'; // импорт функции, отрисовывающей изображения на странице
-import { picturesContainer, openBigPicture } from './create-big-picture.js'; // импорт функции открытия/закрытия большого изображения
-import { uploadImageInput, openUploadForm } from './upload-photo.js'; // импорт функции загрузки изображения
-
-const photosArray = createPhotosArray(); // формируем объект с моковыми данными
-createPictures(photosArray); // отрисовываем изображения
-
-picturesContainer.addEventListener('click', (evt) => openBigPicture(evt, photosArray)); // открываем большое фото
-
-uploadImageInput.addEventListener('change', (evt) => openUploadForm(evt)); // открываем форму загрузки фото
-
-/* валидация */
 const uploadImageForm = document.querySelector('.img-upload__form'); // форма загрузки фото
 const commentField = uploadImageForm.querySelector('.text__description'); // поле ввода комментария
 const hashtagsField = uploadImageForm.querySelector('.text__hashtags'); // поле ввода хэштэгов
