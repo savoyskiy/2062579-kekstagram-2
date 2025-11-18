@@ -1,4 +1,4 @@
-import { commentField, hashtagsField, validateUploadPhotoForm } from './validation-form.js';
+import { pristine, commentField, hashtagsField, validateUploadPhotoForm } from './validation-form.js';
 const BODY = document.querySelector('BODY');
 const uploadImageForm = document.querySelector('.img-upload__form'); // форма загрузки фото
 export const uploadImageInput = uploadImageForm.querySelector('.img-upload__input'); // поле загрузки фото
@@ -18,6 +18,8 @@ const closeUploadForm = () => { // функция закрытия формы
   uploadImageForm.removeEventListener('submit', validateUploadPhotoForm); // удаляем обработчик отправки формы
 
   uploadImageForm.reset(); // сбрасываю поля формы
+
+  pristine.reset(); // сбрасываю валидацию
 };
 
 const onEscapeDown = (evt) => { // функция закрытия окна по эскейпу
