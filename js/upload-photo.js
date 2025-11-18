@@ -1,4 +1,4 @@
-import { pristine, commentField, hashtagsField, validateUploadPhotoForm } from './validation-form.js';
+import { commentField, hashtagsField, validateUploadPhotoForm, pristine } from './validation-form.js';
 const BODY = document.querySelector('BODY');
 const uploadImageForm = document.querySelector('.img-upload__form'); // форма загрузки фото
 export const uploadImageInput = uploadImageForm.querySelector('.img-upload__input'); // поле загрузки фото
