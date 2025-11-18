@@ -82,3 +82,8 @@ export const validateHashTagRules = () => {
   }
   return result;
 };
+
+export const validateUploadPhotoForm = (evt) => { // валидация формы
+  evt.preventDefault();
+  pristine.validate();
+};

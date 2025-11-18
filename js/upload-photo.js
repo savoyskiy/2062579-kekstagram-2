@@ -1,3 +1,4 @@
+import { validateUploadPhotoForm } from './validation-form.js';
 const BODY = document.querySelector('BODY');
 const uploadImageForm = document.querySelector('.img-upload__form'); // форма загрузки фото
 export const uploadImageInput = uploadImageForm.querySelector('.img-upload__input'); // поле загрузки фото
@@ -18,6 +19,7 @@ const closeUploadForm = () => { // функция закрытия формы
 
   document.removeEventListener('keydown', onEscapeDown); // снять обработчик с эскейпа
 
+  uploadImageForm.removeEventListener('submit', validateUploadPhotoForm); // удаляем обработчик отправки формы
   uploadImageInput.value = ''; // вернуть полю загрузки фото значение по-умолчанию
   commentField.value = ''; // убираем введенный комментарий
   hashtagsField.value = ''; // убираем введенные хэштэги
@@ -45,4 +47,6 @@ export const openUploadForm = (evt) => { // функция открытия фо
   uploadImageCancel.addEventListener('click', closeUploadForm); // обработчик на крестик
 
   document.addEventListener('keydown', onEscapeDown); // повесить обработчик на эскейп
+
+  uploadImageForm.addEventListener('submit', validateUploadPhotoForm); // обработчик валидации формы
 };
