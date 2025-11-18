@@ -22,7 +22,7 @@ let hashtagsFieldValues = []; // содержимое поля ввода хэш
 let errorHashtagMessage = ''; // сообщение об ошибке
 
 export const createErrorHashtagMessage = () => { // функция создания комментария об ошибке
-  hashtagsFieldValues = hashtagsField.value.trim().split(' '); // разбиваем введенные в поле символы на отдельные хэштэги
+  hashtagsFieldValues = hashtagsField.value.trim().split(/\s+/); // разбиваем введенные в поле символы на отдельные хэштэги
 
   for (const hashtagsFieldValue of hashtagsFieldValues) {
     if (!hashtagRules.test(hashtagsFieldValue)) { // если не прошла валидация хэштэга, то
@@ -55,7 +55,7 @@ export const createErrorHashtagMessage = () => { // функция создан�
 };
 
 export const validateHashTagRules = () => {
-  hashtagsFieldValues = hashtagsField.value.trim().split(' '); // разбиваем введенные в поле символы на отдельные хэштэги
+  hashtagsFieldValues = hashtagsField.value.trim().split(/\s+/); // разбиваем введенные в поле символы на отдельные хэштэги
   let result = true;
 
   if (hashtagsField.value === '') { // хэштэг не обязателен
@@ -67,7 +67,7 @@ export const validateHashTagRules = () => {
       return result;
     }
   }
-  if (hashtagsFieldValues.length >= 6) { // проверка на макс. кол-во хэштэгов
+  if (hashtagsFieldValues.length > MAX_HASHTAG_NUMBER) { // проверка на макс. кол-во хэштэгов
     result = false;
   }
   if (hashtagsFieldValues.length > 1) { // проверка на повторение хэштегов
