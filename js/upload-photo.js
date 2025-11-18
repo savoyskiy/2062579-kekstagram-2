@@ -1,4 +1,4 @@
-import { validateUploadPhotoForm } from './validation-form.js';
+import { commentField, hashtagsField, validateUploadPhotoForm } from './validation-form.js';
 const BODY = document.querySelector('BODY');
 const uploadImageForm = document.querySelector('.img-upload__form'); // форма загрузки фото
 export const uploadImageInput = uploadImageForm.querySelector('.img-upload__input'); // поле загрузки фото
@@ -6,10 +6,6 @@ const uploadImageOverlay = uploadImageForm.querySelector('.img-upload__overlay')
 const uploadImagePreview = uploadImageForm.querySelector('.img-upload__preview img'); // превьюшка
 const uploadImageCancel = uploadImageForm.querySelector('.img-upload__cancel'); // кнопка закрытия
 const effectsPreviews = uploadImageForm.querySelectorAll('.effects__preview'); // превьюшки в фильтрах
-const commentField = uploadImageForm.querySelector('.text__description'); // поле ввода комментария
-const hashtagsField = uploadImageForm.querySelector('.text__hashtags'); // поле ввода хэштэгов
-// const uploadImageFieldWrapper = uploadImageForm.querySelector('.img-upload__field-wrapper'); // поле вывода ошибки при валидации
-
 
 const closeUploadForm = () => { // функция закрытия формы
   uploadImageOverlay.classList.add('hidden');
@@ -20,14 +16,17 @@ const closeUploadForm = () => { // функция закрытия формы
   document.removeEventListener('keydown', onEscapeDown); // снять обработчик с эскейпа
 
   uploadImageForm.removeEventListener('submit', validateUploadPhotoForm); // удаляем обработчик отправки формы
-  uploadImageInput.value = ''; // вернуть полю загрузки фото значение по-умолчанию
-  commentField.value = ''; // убираем введенный комментарий
-  hashtagsField.value = ''; // убираем введенные хэштэги
+
+  uploadImageForm.reset(); // сбрасываю поля формы
 };
 
 const onEscapeDown = (evt) => { // функция закрытия окна по эскейпу
   if (evt.key === 'Escape') {
-    closeUploadForm();
+    if (document.activeElement === commentField || document.activeElement === hashtagsField) { // при фокусе на полях ввода отключаем закрытие по эскейп
+      evt.stopPropagation();
+    } else {
+      closeUploadForm();
+    }
   }
 };
 
