@@ -2,37 +2,25 @@ import { createPhotosArray } from './create-photos-array.js'; // импорт ф
 import { createPictures } from './create-pictures.js'; // импорт функции, отрисовывающей изображения на странице
 import { picturesContainer, openBigPicture } from './create-big-picture.js'; // импорт функции открытия/закрытия большого изображения
 import { uploadImageInput, openUploadForm } from './upload-photo.js'; // импорт функции загрузки изображения
+import { MAX_COMMENT_LENGTH, uploadImageForm, commentField, hashtagsField, pristine, validateComment, createErrorHashtagMessage, validateHashTagRules} from './validation-form.js'; // импорт данных валидации полей ввода формы
 
-const photosArray = createPhotosArray(); // формируем объект с моковыми данными
-createPictures(photosArray); // отрисовываем изображения
+/* формируем объект с моковыми данными */
+const photosArray = createPhotosArray();
 
-picturesContainer.addEventListener('click', (evt) => openBigPicture(evt, photosArray)); // открываем большое фото
+/* отрисовываем изображения */
+createPictures(photosArray);
 
-uploadImageInput.addEventListener('change', (evt) => openUploadForm(evt)); // открываем форму загрузки фото
+/* открываем большое фото */
+picturesContainer.addEventListener('click', (evt) => openBigPicture(evt, photosArray));
 
-/* валидация */
-const uploadImageForm = document.querySelector('.img-upload__form'); // форма загрузки фото
-const commentField = uploadImageForm.querySelector('.text__description'); // поле ввода комментария
-const hashtagsField = uploadImageForm.querySelector('.text__hashtags'); // поле ввода хэштэгов
-const hashtagRules = /^#[a-zа-яё0-9]{1,19}$/i; // регулярное выражение для валидации хэштэга
+/* открываем форму загрузки фото */
+uploadImageInput.addEventListener('change', (evt) => openUploadForm(evt));
 
-const pristine = new Pristine(uploadImageForm, {
-  // class of the parent element where the error/success class is added
-  classTo: 'img-upload__field-wrapper',
-  errorClass: 'img-upload__field-wrapper--error',
-  // class of the parent element where error text element is appended
-  errorTextParent: 'img-upload__field-wrapper'
-});
+/* валидируем поля ввода формы загрузки фото */
+pristine.addValidator(commentField, validateComment, `Не более ${MAX_COMMENT_LENGTH} символов`); // проверка комментария
+pristine.addValidator(hashtagsField, validateHashTagRules, createErrorHashtagMessage); // проверка хэштэгов
 
-const validateComment = () => commentField.value.length <= 140;
-
-const validateHashTag = () => hashtagRules.test(hashtagsField.value);
-
-pristine.addValidator(commentField, validateComment, 'Не более 140 символов');
-
-pristine.addValidator(hashtagsField, validateHashTag, 'Неликвид');
-
-uploadImageForm.addEventListener('submit',(evt) => {
+uploadImageForm.addEventListener('submit', (evt) => { // валидация формы
   evt.preventDefault();
   pristine.validate();
 });

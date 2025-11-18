@@ -5,6 +5,9 @@ const uploadImageOverlay = uploadImageForm.querySelector('.img-upload__overlay')
 const uploadImagePreview = uploadImageForm.querySelector('.img-upload__preview img'); // превьюшка
 const uploadImageCancel = uploadImageForm.querySelector('.img-upload__cancel'); // кнопка закрытия
 const effectsPreviews = uploadImageForm.querySelectorAll('.effects__preview'); // превьюшки в фильтрах
+const commentField = uploadImageForm.querySelector('.text__description'); // поле ввода комментария
+const hashtagsField = uploadImageForm.querySelector('.text__hashtags'); // поле ввода хэштэгов
+// const uploadImageFieldWrapper = uploadImageForm.querySelector('.img-upload__field-wrapper'); // поле вывода ошибки при валидации
 
 
 const closeUploadForm = () => { // функция закрытия формы
@@ -16,6 +19,8 @@ const closeUploadForm = () => { // функция закрытия формы
   document.removeEventListener('keydown', onEscapeDown); // снять обработчик с эскейпа
 
   uploadImageInput.value = ''; // вернуть полю загрузки фото значение по-умолчанию
+  commentField.value = ''; // убираем введенный комментарий
+  hashtagsField.value = ''; // убираем введенные хэштэги
 };
 
 const onEscapeDown = (evt) => { // функция закрытия окна по эскейпу
