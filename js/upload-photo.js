@@ -1,4 +1,6 @@
 import { commentField, hashtagsField, validateUploadPhotoForm, pristine } from './validation-form.js';
+import { scaleControlSmaller, scaleControlBigger, smallPhotoScale, bigPhotoScale } from './scale-photo.js';
+
 const BODY = document.querySelector('BODY');
 const uploadImageForm = document.querySelector('.img-upload__form'); // форма загрузки фото
 export const uploadImageInput = uploadImageForm.querySelector('.img-upload__input'); // поле загрузки фото
@@ -20,6 +22,9 @@ const closeUploadForm = () => { // функция закрытия формы
   uploadImageForm.reset(); // сбрасываю поля формы
 
   pristine.reset(); // сбрасываю валидацию
+
+  scaleControlSmaller.removeEventListener('click', smallPhotoScale); // убираем обработчик кнопки уменьшения масштаба превью
+  scaleControlBigger.removeEventListener('click', bigPhotoScale); // убираем обработчик кнопки увеличения масштаба превью
 };
 
 const onEscapeDown = (evt) => { // функция закрытия окна по эскейпу
@@ -50,4 +55,7 @@ export const openUploadForm = (evt) => { // функция открытия фо
   document.addEventListener('keydown', onEscapeDown); // повесить обработчик на эскейп
 
   uploadImageForm.addEventListener('submit', validateUploadPhotoForm); // обработчик валидации формы
+
+  scaleControlSmaller.addEventListener('click', smallPhotoScale); // обработчик кнопки уменьшения масштаба превью
+  scaleControlBigger.addEventListener('click', bigPhotoScale); // обработчик кнопки увеличения масштаба превью
 };
