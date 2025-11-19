@@ -1,5 +1,5 @@
-import { commentField, hashtagsField, validateUploadPhotoForm, pristine } from './validation-form.js';
-import { scaleControlSmaller, scaleControlBigger, smallPhotoScale, bigPhotoScale } from './scale-photo.js';
+import { commentField, hashtagsField, validateUploadPhotoForm, pristine } from './validation-form.js'; // импорт данных валидации полей формы
+import { scaleControlSmaller, scaleControlBigger, smallPhotoScale, bigPhotoScale } from './scale-photo.js'; // импорт данных изменения масштабаа превью
 
 const BODY = document.querySelector('BODY');
 const uploadImageForm = document.querySelector('.img-upload__form'); // форма загрузки фото
