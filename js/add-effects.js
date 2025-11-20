@@ -3,11 +3,11 @@ export const effectLevelValue = document.querySelector('.effect-level__value'); 
 export const uploadImagePreview = document.querySelector('.img-upload__preview img'); // превьюшка
 export const effectsList = document.querySelector('.effects__list'); // список превьюшек фильтров
 
-export let effectName = 'none';
-export let effectParameter = '';
-effectLevelSlider.classList.add('hidden');
+export let effectName = 'none'; // имя эффекта для инлайн-стиля
+export let effectParameter = ''; // параметр эффекта для инлайе стиля: px, % или ничего
+effectLevelSlider.classList.add('hidden'); // скрываем слайдер при загрузке
 
-noUiSlider.create(effectLevelSlider, {
+noUiSlider.create(effectLevelSlider, { // подключаем слайдер
   range: {
     min: 0,
     max: 100
@@ -17,8 +17,10 @@ noUiSlider.create(effectLevelSlider, {
   connect: 'lower'
 });
 
-export const checkEffect = (evt) => {
-  const checkedEffect = evt.target.id;
+export const effectStyle = () => `${effectName}(${effectLevelValue.value}${effectParameter})`; // параметр для инлайн-стиля
+
+export const checkEffect = (evt) => { // функция выбора эффекта при клике по превьюшке
+  const checkedEffect = evt.target.id; // id выбранного эффекта
 
   switch (checkedEffect) {
     case 'effect-none':
@@ -29,9 +31,7 @@ export const checkEffect = (evt) => {
         },
         step: 1,
       });
-      effectLevelSlider.noUiSlider.set(100);
-      effectName = 'none';
-      uploadImagePreview.style.filter = `${effectName}`;
+      uploadImagePreview.style.filter = 'none';
       effectLevelSlider.classList.add('hidden');
       break;
     case 'effect-chrome':
@@ -45,7 +45,7 @@ export const checkEffect = (evt) => {
       effectLevelSlider.noUiSlider.set(1);
       effectName = 'grayscale';
       effectParameter = '';
-      uploadImagePreview.style.filter = `${effectName}(${effectLevelValue.value}${effectParameter})`;
+      uploadImagePreview.style.filter = effectStyle();
       effectLevelSlider.classList.remove('hidden');
       break;
     case 'effect-sepia':
@@ -59,7 +59,7 @@ export const checkEffect = (evt) => {
       effectLevelSlider.noUiSlider.set(1);
       effectName = 'sepia';
       effectParameter = '';
-      uploadImagePreview.style.filter = `${effectName}(${effectLevelValue.value}${effectParameter})`;
+      uploadImagePreview.style.filter = effectStyle();
       effectLevelSlider.classList.remove('hidden');
       break;
     case 'effect-marvin':
@@ -73,7 +73,7 @@ export const checkEffect = (evt) => {
       effectLevelSlider.noUiSlider.set(100);
       effectName = 'invert';
       effectParameter = '%';
-      uploadImagePreview.style.filter = `${effectName}(${effectLevelValue.value}${effectParameter})`;
+      uploadImagePreview.style.filter = effectStyle();
       effectLevelSlider.classList.remove('hidden');
       break;
     case 'effect-phobos':
@@ -87,7 +87,7 @@ export const checkEffect = (evt) => {
       effectLevelSlider.noUiSlider.set(3);
       effectName = 'blur';
       effectParameter = 'px';
-      uploadImagePreview.style.filter = `${effectName}(${effectLevelValue.value}${effectParameter})`;
+      uploadImagePreview.style.filter = effectStyle();
       effectLevelSlider.classList.remove('hidden');
       break;
     case 'effect-heat':
@@ -101,7 +101,7 @@ export const checkEffect = (evt) => {
       effectLevelSlider.noUiSlider.set(3);
       effectName = 'brightness';
       effectParameter = '';
-      uploadImagePreview.style.filter = `${effectName}(${effectLevelValue.value}${effectParameter})`;
+      uploadImagePreview.style.filter = effectStyle();
       effectLevelSlider.classList.remove('hidden');
       break;
   }
