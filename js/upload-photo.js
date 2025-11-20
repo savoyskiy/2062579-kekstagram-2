@@ -22,7 +22,7 @@ const closeUploadForm = () => { // функция закрытия формы
   pristine.reset(); // сбрасываю валидацию
 };
 
-const onEscapeDown = (evt) => { // функция закрытия окна по эскейпу
+function onEscapeDown (evt) { // функция закрытия окна по эскейпу
   if (evt.key === 'Escape') {
     if (document.activeElement === commentField || document.activeElement === hashtagsField) { // при фокусе на полях ввода отключаем закрытие по эскейп
       evt.stopPropagation();
@@ -30,7 +30,7 @@ const onEscapeDown = (evt) => { // функция закрытия окна по
       closeUploadForm();
     }
   }
-};
+}
 
 export const openUploadForm = (evt) => { // функция открытия формы
   uploadImageOverlay.classList.remove('hidden');
