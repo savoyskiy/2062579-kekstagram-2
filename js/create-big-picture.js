@@ -65,7 +65,7 @@ const openComments = (array, i) => { // функция, открывающая �
   }
 };
 
-const manageComments = () => { // функция управления блоком комментариев
+function manageComments () { // функция управления блоком комментариев
   const workArray = Array.from(socialCommentsCollection); // превращаем коллекцию в массив
   const startElement = workArray.findIndex((elem) => // находим, какой первый элемент с классом 'hidden'
     elem.classList.contains('hidden')
@@ -79,7 +79,7 @@ const manageComments = () => { // функция управления блоко
     countOpenComments(i); // меняем кол-во показанных ком-в
     hiddenCommentLoaderButton(workArray, i); // убираем кнопку-загрузчик
   }
-};
+}
 
 const closeBigPicture = () => { // функция закрытия окна
   bigPicture.classList.add('hidden'); // закрыть окно
@@ -93,11 +93,11 @@ const closeBigPicture = () => { // функция закрытия окна
   document.removeEventListener('keydown', onEscapeDown); // снять обработчик с эскейпа
 };
 
-const onEscapeDown = (evt) => { // функция закрытия окна по эскейпу
+function onEscapeDown (evt) { // функция закрытия окна по эскейпу
   if (evt.key === 'Escape') {
     closeBigPicture();
   }
-};
+}
 
 const packBigPictureData = (array, id) => { // функция заполнения полей большого фото
   bigPictureImg.src = array[id].url;
