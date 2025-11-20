@@ -1,11 +1,12 @@
 import { commentField, hashtagsField, validateUploadPhotoForm, pristine } from './validation-form.js'; // импорт данных валидации полей формы
 import { SCALE_PARAMETERS, scaleControlSmaller, scaleControlBigger, smallPhotoScale, bigPhotoScale } from './scale-photo.js'; // импорт данных изменения масштаба превью
+import { effectLevelSlider, uploadImagePreview, effectsList, checkEffect } from './add-effects.js'; // импорт данных работы фильтров
 
 const BODY = document.querySelector('BODY');
 const uploadImageForm = document.querySelector('.img-upload__form'); // форма загрузки фото
 export const uploadImageInput = uploadImageForm.querySelector('.img-upload__input'); // поле загрузки фото
 const uploadImageOverlay = uploadImageForm.querySelector('.img-upload__overlay'); // окно загрузки комм-я
-const uploadImagePreview = uploadImageForm.querySelector('.img-upload__preview img'); // превьюшка
+// const uploadImagePreview = uploadImageForm.querySelector('.img-upload__preview img'); // превьюшка
 const uploadImageCancel = uploadImageForm.querySelector('.img-upload__cancel'); // кнопка закрытия
 const effectsPreviews = uploadImageForm.querySelectorAll('.effects__preview'); // превьюшки в фильтрах
 
@@ -27,6 +28,10 @@ const closeUploadForm = () => { // функция закрытия формы
   scaleControlBigger.removeEventListener('click', bigPhotoScale); // снятие обработчика кнопки увеличения масштаба превью
 
   uploadImagePreview.style.scale = `${SCALE_PARAMETERS.MAX}%`; // сброс значения масштаба превью
+
+  effectsList.removeEventListener('change', checkEffect); // снятие обработчика выбора фильтров
+  uploadImagePreview.removeAttribute('style'); // сброс стилей фильтра
+  effectLevelSlider.classList.add('hidden'); // скрытие слайдера
 };
 
 function onEscapeDown (evt) { // функция закрытия окна по эскейпу
@@ -60,4 +65,6 @@ export const openUploadForm = (evt) => { // функция открытия фо
 
   scaleControlSmaller.addEventListener('click', smallPhotoScale); // обработчик кнопки уменьшения масштаба превью
   scaleControlBigger.addEventListener('click', bigPhotoScale); // обработчик кнопки увеличения масштаба превью
+
+  effectsList.addEventListener('change', checkEffect); // обработчик выбора фильтра
 };
