@@ -38,11 +38,11 @@ const closeBigPicture = () => { // функция закрытия окна
   document.removeEventListener('keydown', onEscapeDown); // снять обработчик с эскейпа
 };
 
-const onEscapeDown = (evt) => { // ф-я закрытия окна по эскейпу
+function onEscapeDown (evt) { // ф-я закрытия окна по эскейпу
   if (evt.key === 'Escape') {
     closeBigPicture();
   }
-};
+}
 
 const packBigPictureData = (array, id) => { // функция заполнения полей большого фото
   bigPictureImg.src = array[id].url;
